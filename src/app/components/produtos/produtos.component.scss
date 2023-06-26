@@ -1,0 +1,49 @@
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    ion-searchbar {
+        width: 320px;
+    }
+
+    ion-button {
+        font-weight: bold;
+        width: 100px;
+    }
+}
+
+.scroll-x {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-container {
+    overflow: auto;
+    flex-wrap: nowrap;
+
+    .table-row {
+        flex-wrap: nowrap;
+        width: 100%;
+
+        .table-col {
+            flex-wrap: nowrap;
+
+            min-width: 100px;
+            background-color: #fff;
+
+            padding: 10px;
+            margin: 5px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+        }
+        
+        .table-header {
+            background-color: #eaeaea;
+            font-size: 1rem;
+
+            font-weight: bold;
+        }
+
+    }
+}
