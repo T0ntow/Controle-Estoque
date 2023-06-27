@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-
+import { ProductsService } from 'services/products.service';
 
 @Component({
   selector: 'app-modal-new-product',
@@ -17,6 +16,7 @@ export class ModalNewProductComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
+    private productsService: ProductsService,
     private http: HttpClient
   ) { }
 
@@ -39,25 +39,25 @@ export class ModalNewProductComponent implements OnInit {
   confirm() {
     if (this.newProductForm.valid) {
       const formData = this.newProductForm.value;
-      
-      this.http.post('http://localhost:3001/enviar-dados', formData)
-        .subscribe(
-          (response) => {
-            console.log('Dados enviados com sucesso!');
-            // Faça qualquer ação adicional que desejar após enviar os dados
-            this.modalCtrl.dismiss(null, 'confirm');
-          },
-          (error) => {
-            console.error('Erro ao enviar dados:', error);
-          }
-        );
+
+      this.http.post('http://localhost:3001/enviar-dados', formData).subscribe({
+        next: (response: any) => {
+          console.log('Dados enviados com sucesso!');
+          // Faça qualquer ação adicional que desejar após enviar os dados
+
+          this.productsService.updateObservableProducts()
+          this.modalCtrl.dismiss(null, 'confirm');
+        },
+        error: (error: any) => {
+          console.error('Erro ao enviar dados:', error);
+        }
+      });
+
     } else {
       console.log('Formulário inválido');
     }
-    
+
     return this.modalCtrl.dismiss(null, 'confirm');
   }
-  
-
 
 }

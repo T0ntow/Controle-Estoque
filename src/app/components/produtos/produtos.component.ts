@@ -7,14 +7,22 @@ import { ProductsService } from 'services/products.service';
   styleUrls: ['./produtos.component.scss'],
 })
 
-export class ProdutosComponent  implements OnInit {
+export class ProdutosComponent implements OnInit {
 
   products: any[] = [];
 
-  constructor(private productService: ProductsService) { }
-
+  constructor(private productService: ProductsService) {
+    this.productService.getObservableProducts().subscribe(isUpdated => {
+      console.log('chegou isUpdated: ',isUpdated);
+      this.getProducts()
+    })
+   }
 
   ngOnInit() {
+    this.getProducts()
+  }
+
+  getProducts() {
     this.productService.getProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
@@ -23,6 +31,6 @@ export class ProdutosComponent  implements OnInit {
         console.error('Erro ao obter os produtos:', error);
       }
     });
-
   }
+
 }
