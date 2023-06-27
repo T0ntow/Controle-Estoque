@@ -9,12 +9,16 @@ import { HomePageRoutingModule } from './home-routing.module';
 //components
 import { ProdutosComponent } from '../components/produtos/produtos.component';
 
+//modulo http
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    HttpClientModule
   ],
   declarations: [
     HomePage,
