@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 // Configuração da conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
@@ -43,9 +44,32 @@ app.get('/tabela/:nomeTabela', (req, res) => {
   });
 });
 
+// ==================================
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+app.post('/enviar-dados', (req, res) => {
+  const { Codigo, Produto, Marca, Data, Estoque, Saida, Entrada } = req.body;
+
+  const sql = `INSERT INTO produtos (Codigo, Produto, Marca, Data, Estoque, Saida, Entrada) VALUES (?, ?, ?, ?, ?, ?, ?);`;
+
+  connection.query(sql, [Codigo, Produto, Marca, Data, Estoque, Saida, Entrada], (err, result) => {
+    if (err) {
+      console.error('Erro ao inserir dados no banco de dados:', err);
+      res.status(500).json({ error: 'Erro ao inserir dados no banco de dados' });
+      return;
+    }
+
+    console.log('Dados inseridos com sucesso no banco de dados');
+    res.status(200).json({ message: 'Dados inseridos com sucesso' });
+  });
+});
+
 // Rota de erro para lidar com rotas não correspondentes
-app.get('*', (req, res) => {
-  res.status(404).json({ error: 'Rota não encontrada' });
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json');
+  next();
 });
 
 app.listen(3001, () => {

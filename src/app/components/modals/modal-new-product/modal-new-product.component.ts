@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ModalNewProductComponent implements OnInit {
   newProductForm: FormGroup = new FormGroup({});
+  url = 'http://localhost:3001/enviar-dados';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,11 +22,13 @@ export class ModalNewProductComponent implements OnInit {
 
   ngOnInit() {
     this.newProductForm = this.formBuilder.group({
-      codigo: ['', [Validators.required]],
-      nome: ['', [Validators.required]],
-      marca: ['', [Validators.required]],
-      data: ['', [Validators.required]],
-      estoque: ['', [Validators.required]],
+      Codigo: ['', [Validators.required]],
+      Produto: ['', [Validators.required]],
+      Marca: ['', [Validators.required]],
+      Data: ['', [Validators.required]],
+      Estoque: ['', [Validators.required]],
+      Entrada: [0],
+      Saida: [0],
     });
   }
 
@@ -34,26 +37,27 @@ export class ModalNewProductComponent implements OnInit {
   }
 
   confirm() {
-    // if (this.newProductForm.valid) {
-    //   const formData = this.newProductForm.value;
-  
-    //   this.http.post('http://localhost:3001/enviar-dados', formData)
-    //     .subscribe(
-    //       (response) => {
-    //         console.log('Dados enviados com sucesso!');
-    //         // Faça qualquer ação adicional que desejar após enviar os dados
-    //         this.modalCtrl.dismiss(null, 'confirm');
-    //       },
-    //       (error) => {
-    //         console.error('Erro ao enviar dados:', error);
-    //       }
-    //     );
-    // } else {
-    //   console.log('Formulário inválido');
-    // }
+    if (this.newProductForm.valid) {
+      const formData = this.newProductForm.value;
+      
+      this.http.post('http://localhost:3001/enviar-dados', formData)
+        .subscribe(
+          (response) => {
+            console.log('Dados enviados com sucesso!');
+            // Faça qualquer ação adicional que desejar após enviar os dados
+            this.modalCtrl.dismiss(null, 'confirm');
+          },
+          (error) => {
+            console.error('Erro ao enviar dados:', error);
+          }
+        );
+    } else {
+      console.log('Formulário inválido');
+    }
     
     return this.modalCtrl.dismiss(null, 'confirm');
   }
   
+
 
 }
