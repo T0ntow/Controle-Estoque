@@ -8,9 +8,13 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 //components
 import { ProdutosComponent } from '../components/produtos/produtos.component';
+import { ModalNewProductComponent } from '../components/modals/modal-new-product/modal-new-product.component';
+
 
 //modulo http
 import { HttpClientModule } from '@angular/common/http';
+//modulo form
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -18,11 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     HomePage,
-    ProdutosComponent
+    ProdutosComponent,
+    ModalNewProductComponent
   ]
 })
 export class HomePageModule {}

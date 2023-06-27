@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController } from '@ionic/angular';
+import { ModalNewProductComponent } from '../modals/modal-new-product/modal-new-product.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent  implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modalCtrl: ModalController,
+  ) { }
 
   ngOnInit() {}
 
@@ -21,5 +24,12 @@ export class NavComponent  implements OnInit {
 
   mostrarAlteracao() {
     this.exibirAlteracao = !this.exibirAlteracao;
+  }
+
+  async openModalCreatePrdouct() {
+    const modal = await this.modalCtrl.create({
+      component: ModalNewProductComponent,
+    });
+    modal.present();
   }
 }

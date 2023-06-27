@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="contrast" (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="success" (click)="confirm()" [disabled]="newProductForm.invalid"
+        [strong]="true">Confirmar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card class="card">
+    <ion-card-content color="contrast">
+
+      <form [formGroup]="newProductForm">
+        <ion-item color="contrast">
+          <ion-label position="stacked">Código</ion-label>
+          <ion-input formControlName="codigo" type="number"></ion-input>
+        </ion-item>
+        
+        <ion-item color="contrast">
+          <ion-label position="stacked">Nome</ion-label>
+          <ion-input formControlName="nome" type="text"></ion-input>
+        </ion-item>
+        
+        <ion-item color="contrast">
+          <ion-label position="stacked">Marca</ion-label>
+          <ion-input formControlName="marca" type="text"></ion-input>
+        </ion-item>
+        
+        <ion-item color="contrast">
+          <ion-label position="stacked">Data</ion-label>
+          <ion-input formControlName="data" type="date"></ion-input>
+        </ion-item>
+        
+        <ion-item color="contrast">
+          <ion-label position="stacked">Estoque</ion-label>
+          <ion-input formControlName="estoque" type="number"></ion-input>
+        </ion-item>
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

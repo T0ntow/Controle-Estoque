@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
+const cors = require('cors');
 
 // Configuração da conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
@@ -18,6 +19,9 @@ connection.connect((err) => {
   }
   console.log('Conexão com o MySQL estabelecida!');
 });
+
+// Configurar o CORS
+app.use(cors());
 
 // Rota GET para obter os dados de uma tabela específica
 app.get('/tabela/:nomeTabela', (req, res) => {
