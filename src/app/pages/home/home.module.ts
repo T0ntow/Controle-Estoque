@@ -28,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     HomePage,
     ProdutosComponent,
-    ModalNewProductComponent
+    ModalNewProductComponent,
+    
   ]
 })
 export class HomePageModule {}

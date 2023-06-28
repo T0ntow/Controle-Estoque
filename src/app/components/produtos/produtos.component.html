@@ -1,12 +1,21 @@
 <div id="box-filters">
-  <ion-searchbar color="contrast" placeholder="Pesquise por um produto"></ion-searchbar>
+  <ion-searchbar color="contrast" placeholder="Pesquise por um produto" (ionChange)="searchProducts($event)"></ion-searchbar>
 
   <ion-button color="contrast">
     Filtros
   </ion-button>
 </div>
 
+
+
 <ion-content color="contrast">
+
+  <!-- <ul>
+    <li *ngFor="let product of filteredProducts">
+      {{ product.Produto }}
+    </li>
+  </ul> -->
+
   <ion-card color="contrast">
     <ion-grid class="table-container" color="contrast">
       <ion-row class="table-row">
@@ -19,14 +28,18 @@
         <ion-col class="table-col table-header">Saida</ion-col>
       </ion-row>
   
-      <ion-row class="table-row" *ngFor="let product of products">
+      <ion-row class="table-row" *ngFor="let product of filteredProducts">
         <ion-col class="table-col">{{ product.Codigo }}</ion-col>
         <ion-col class="table-col">{{ product.Produto }}</ion-col>
         <ion-col class="table-col">{{ product.Marca }}</ion-col>
         <ion-col class="table-col">{{ product.Data }}</ion-col>
+        <!-- <ion-col class="table-col">{{ format(product.Data, "dd/MM/yyyy") }}</ion-col>  -->
+
         <ion-col class="table-col">{{ product.Estoque }}</ion-col>
         <ion-col class="table-col">{{ product.Entrada }}</ion-col>
         <ion-col class="table-col">{{ product.Saida }}</ion-col>
+
+        <ion-col class="table-col ion-padding" id="edit-product"  ><ion-icon name="create-outline"></ion-icon></ion-col>
       </ion-row>
   
     </ion-grid>
