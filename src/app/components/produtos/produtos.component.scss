@@ -1,10 +1,12 @@
-div {
+#box-filters {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 20px;
 
     ion-searchbar {
         width: 320px;
+        max-width: 320px;
     }
 
     ion-button {
@@ -13,15 +15,19 @@ div {
     }
 }
 
-.scroll-x {
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
+ion-content {
+    height: 90%;
+
+    ion-card {
+        padding: 5px;
+    }
 }
 
-.table-container {
-    overflow: auto;
-    flex-wrap: nowrap;
 
+.table-container {
+    flex-wrap: nowrap;
+    overflow: auto;
+  
     .table-row {
         flex-wrap: nowrap;
         width: 100%;
@@ -34,15 +40,15 @@ div {
 
             padding: 10px;
             margin: 5px;
-            font-size: 0.9rem;
+            font-size: .9rem;
             border-radius: 5px;
         }
         
         .table-header {
             background-color: #eaeaea;
             font-size: 1rem;
-
             font-weight: bold;
+            position: sticky;
         }
 
     }

@@ -1,34 +1,35 @@
+<div id="box-filters">
+  <ion-searchbar color="contrast" placeholder="Pesquise por um produto"></ion-searchbar>
+
+  <ion-button color="contrast">
+    Filtros
+  </ion-button>
+</div>
 
 <ion-content color="contrast">
-  <div>
-    <ion-searchbar color="contrast" placeholder="Pesquise por um produto"></ion-searchbar>
-    
-    <ion-button color="contrast">
-      Filtros
-    </ion-button>
-  </div>
-
-  <ion-grid class="table-container scroll-x"scrollX="true">
-
-    <ion-row class="table-row" >
-      <ion-col class="table-col table-header">Codigo</ion-col>
-      <ion-col class="table-col table-header">Produto</ion-col>
-      <ion-col class="table-col table-header">Marca</ion-col>
-      <ion-col class="table-col table-header">Data</ion-col>
-      <ion-col class="table-col table-header">Estoque</ion-col>
-      <ion-col class="table-col table-header">Entrada</ion-col>
-      <ion-col class="table-col table-header">Saida</ion-col>
-    </ion-row>
-
-    <ion-row class="table-row" *ngFor="let product of products">
-      <ion-col class="table-col">{{ product.Codigo }}</ion-col>
-      <ion-col class="table-col">{{ product.Produto }}</ion-col>
-      <ion-col class="table-col">{{ product.Marca }}</ion-col>
-      <ion-col class="table-col">{{ product.Data }}</ion-col>
-      <ion-col class="table-col">{{ product.Estoque }}</ion-col>
-      <ion-col class="table-col">{{ product.Entrada }}</ion-col>
-      <ion-col class="table-col">{{ product.Saida }}</ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-card color="contrast">
+    <ion-grid class="table-container" color="contrast">
+      <ion-row class="table-row">
+        <ion-col class="table-col table-header" color="contrast">Codigo</ion-col>
+        <ion-col class="table-col table-header">Produto</ion-col>
+        <ion-col class="table-col table-header">Marca</ion-col>
+        <ion-col class="table-col table-header">Data</ion-col>
+        <ion-col class="table-col table-header">Estoque</ion-col>
+        <ion-col class="table-col table-header">Entrada</ion-col>
+        <ion-col class="table-col table-header">Saida</ion-col>
+      </ion-row>
   
+      <ion-row class="table-row" *ngFor="let product of products">
+        <ion-col class="table-col">{{ product.Codigo }}</ion-col>
+        <ion-col class="table-col">{{ product.Produto }}</ion-col>
+        <ion-col class="table-col">{{ product.Marca }}</ion-col>
+        <ion-col class="table-col">{{ product.Data }}</ion-col>
+        <ion-col class="table-col">{{ product.Estoque }}</ion-col>
+        <ion-col class="table-col">{{ product.Entrada }}</ion-col>
+        <ion-col class="table-col">{{ product.Saida }}</ion-col>
+      </ion-row>
+  
+    </ion-grid>
+  </ion-card>
+
 </ion-content>
