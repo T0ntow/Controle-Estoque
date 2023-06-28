@@ -10,7 +10,6 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { ProdutosComponent } from '../../components/produtos/produtos.component';
 import { ModalNewProductComponent } from '../../components/modals/modal-new-product/modal-new-product.component';
 
-
 //modulo http
 import { HttpClientModule } from '@angular/common/http';
 //modulo form
