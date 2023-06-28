@@ -8,32 +8,36 @@
     </ion-buttons>
 
     <ion-list>
-      <ion-item lines="none" (mouseover)="exibirServicos = true" (mouseleave)="exibirServicos = false">
 
-        <ion-label >Serviços</ion-label>
-
+      <ion-item [button]="true" lines="none" id="popover-button">
+        <ion-label>Serviços</ion-label>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <div class="caixa" *ngIf="exibirServicos"> 
-          <ion-item  button lines="none" (click)="openModalCreatePrdouct()">
-            <ion-label >Novo Produto</ion-label>
-          </ion-item>
-          <ion-item button lines="none">
-            <ion-label>Nova Marca</ion-label>
-          </ion-item>
-        </div>
       </ion-item>
-      <ion-item lines="none" (mouseover)="exibirAlteracao = true" (mouseleave)="exibirAlteracao = false">
+
+      <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+        <ng-template>
+          <ion-content>
+            <ion-item [button]="true" [detail]="false" color="dark" (click)="openModalCreatePrdouct()">Novo Produto</ion-item>
+            <ion-item [button]="true" [detail]="false" color="dark">Option 2</ion-item>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+
+
+      <ion-item [button]="true" lines="none" id="popover-button-alteration">
         <ion-label>Registrar Alteração</ion-label>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <div class="caixa" *ngIf="exibirAlteracao">
-          <ion-item button lines="none">
-            <ion-label>Registrar Entrada</ion-label>
-          </ion-item>
-          <ion-item button lines="none">
-            <ion-label>Registrar Saída</ion-label>
-          </ion-item>
-        </div>
       </ion-item>
+
+      <ion-popover trigger="popover-button-alteration" [dismissOnSelect]="true">
+        <ng-template>
+          <ion-content>
+            <ion-item [button]="true" [detail]="false" color="dark" (click)="openModalCreatePrdouct()">Nova Entrada</ion-item>
+            <ion-item [button]="true" [detail]="false" color="dark">Nova Saída</ion-item>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+
       <ion-item lines="none" button>
         <ion-label>Login</ion-label>
       </ion-item>

@@ -1,3 +1,7 @@
+* {
+    font-size: .9rem;
+}
+
 ion-header {
     display: flex;
     align-items: center;
@@ -7,6 +11,7 @@ ion-header {
 
     ion-title {
         height: 10vh;
+        font-size: 1.2rem;
     }
 
     ion-toolbar {
@@ -26,7 +31,6 @@ ion-header {
 
             ion-item {
                 margin: 0px 10px;
-                font-size: .9rem;
                 height: 100%;
                 
                 .caixa {
@@ -46,21 +50,6 @@ ion-header {
     }
 }
 
-@keyframes show {
-    0% {
-      opacity: 0;
-      width: 0px;
-    }
-
-    60% {
-       opacity: .2;
-    }
-
-    100% {
-       opacity: 1;
-       width: 350px;
-    }
-}
 
 //criar menu
 @media screen and (max-width: 1024px) {

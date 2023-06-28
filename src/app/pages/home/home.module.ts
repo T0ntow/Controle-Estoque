@@ -7,8 +7,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 //components
-import { ProdutosComponent } from '../components/produtos/produtos.component';
-import { ModalNewProductComponent } from '../components/modals/modal-new-product/modal-new-product.component';
+import { ProdutosComponent } from '../../components/produtos/produtos.component';
+import { ModalNewProductComponent } from '../../components/modals/modal-new-product/modal-new-product.component';
 
 
 //modulo http

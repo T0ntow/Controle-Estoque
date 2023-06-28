@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonPopover, ModalController } from '@ionic/angular';
 import { ModalNewProductComponent } from '../modals/modal-new-product/modal-new-product.component';
 @Component({
   selector: 'app-nav',

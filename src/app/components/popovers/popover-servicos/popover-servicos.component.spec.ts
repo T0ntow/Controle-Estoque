@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FiltersMenuComponent } from './filters-menu.component';
+import { PopoverServicosComponent } from './popover-servicos.component';
 
-describe('FiltersMenuComponent', () => {
-  let component: FiltersMenuComponent;
-  let fixture: ComponentFixture<FiltersMenuComponent>;
+describe('PopoverServicosComponent', () => {
+  let component: PopoverServicosComponent;
+  let fixture: ComponentFixture<PopoverServicosComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FiltersMenuComponent ],
+      declarations: [ PopoverServicosComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FiltersMenuComponent);
+    fixture = TestBed.createComponent(PopoverServicosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
