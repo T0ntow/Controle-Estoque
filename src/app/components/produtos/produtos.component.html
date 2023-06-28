@@ -1,9 +1,41 @@
 <div id="box-filters">
-  <ion-searchbar color="contrast" placeholder="Pesquise por um produto" (ionChange)="searchProducts($event)"></ion-searchbar>
+  <ion-searchbar color="contrast" placeholder="Pesquise por um produto"
+    (ionChange)="searchProducts($event)"></ion-searchbar>
+  <ion-button color="contrast" id="popover-filters"> Filtros </ion-button>
+  
 
-  <ion-button color="contrast">
-    Filtros
-  </ion-button>
+  <ion-popover trigger="popover-filters">
+    <ng-template>
+      <ion-content>
+
+        <ion-item color="dark">
+          <ion-select placeholder="Marcas" (ionChange)="filterProductsByMarca($event)">
+            <ion-select-option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item color="danger" button (click)="removeFilters()">Remover Filtros</ion-item>
+
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
+  <!-- <ion-list>
+    <ion-item>
+      <ion-select
+        aria-label="Food"
+        placeholder="Select food"
+        (ionChange)="handleChange($event)"
+      >
+        <ion-select-option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Marca: {{ selectedMarca }}</ion-label>
+    </ion-item>
+  </ion-list> -->
+
+
 </div>
 
 <ion-content color="contrast">
@@ -18,7 +50,7 @@
         <ion-col class="table-col table-header">Entrada</ion-col>
         <ion-col class="table-col table-header">Saida</ion-col>
       </ion-row>
-  
+
       <ion-row class="table-row" *ngFor="let product of filteredProducts">
         <ion-col class="table-col">{{ product.Codigo }}</ion-col>
         <ion-col class="table-col">{{ product.Produto }}</ion-col>
@@ -30,9 +62,9 @@
         <ion-col class="table-col">{{ product.Entrada }}</ion-col>
         <ion-col class="table-col">{{ product.Saida }}</ion-col>
 
-        <ion-col class="table-col ion-padding" id="edit-product"  ><ion-icon name="create-outline"></ion-icon></ion-col>
+        <ion-col class="table-col ion-padding" id="edit-product"><ion-icon name="create-outline"></ion-icon></ion-col>
       </ion-row>
-  
+
     </ion-grid>
   </ion-card>
 

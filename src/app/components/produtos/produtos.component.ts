@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'services/products.service';
 import { format } from 'date-fns';
+import { PopoverController } from '@ionic/angular';
+import * as e from 'cors';
+
 
 @Component({
   selector: 'app-produtos',
@@ -11,9 +14,13 @@ import { format } from 'date-fns';
 export class ProdutosComponent implements OnInit {
   searchTerm: string = "";
   products: any[] = [];
+  marcas: string[] = [];
   filteredProducts: any[] = [];
+  selectedMark: string = '';
 
-  constructor(private productService: ProductsService) {
+  constructor(
+    private productService: ProductsService,
+    private popoverController: PopoverController) {
     this.productService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
       this.getProducts()
@@ -22,6 +29,29 @@ export class ProdutosComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts()
+  }
+
+
+  filterProductsByMarca(event: any) {
+    this.selectedMark = event.target.value;
+
+    if (this.selectedMark) {
+      this.filteredProducts = this.products.filter(product =>
+        product.Marca.toLowerCase() === this.selectedMark.toLowerCase()
+      );
+
+      this.popoverController.dismiss(); //fechar popover apos filtrar
+
+    } else {
+      this.filteredProducts = this.products;
+    }
+  }
+
+  removeFilters() {
+    this.selectedMark = '';
+
+    this.getProducts();
+    this.popoverController.dismiss(); //fechar popover
   }
 
   searchProducts(event: any) {
@@ -39,6 +69,7 @@ export class ProdutosComponent implements OnInit {
         this.products = data as any[];
         this.formatDates(); // Chame a função formatDates após obter os produtos
         this.filteredProducts = this.products;
+        this.getMarks(); // Chame a função getMarks após obter os produtos
 
       },
       error: (error) => {
@@ -47,13 +78,14 @@ export class ProdutosComponent implements OnInit {
     });
   }
 
- 
-
-
   formatDates() {
     this.products.forEach(product => {
       product.Data = format(new Date(product.Data), 'dd/MM/yyyy');
     });
+  }
+
+  getMarks() {
+    this.marcas = Array.from(new Set(this.products.map(product => product.Marca)));
   }
 
 }
