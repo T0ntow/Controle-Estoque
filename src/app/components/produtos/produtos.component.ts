@@ -31,7 +31,6 @@ export class ProdutosComponent implements OnInit {
     this.getProducts()
   }
 
-
   filterProductsByMarca(event: any) {
     this.selectedMark = event.target.value;
 
