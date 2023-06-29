@@ -66,6 +66,60 @@ app.post('/enviar-dados', (req, res) => {
   });
 });
 
+// ====================================
+
+app.delete('/remover-item/:codigo', (req, res) => {
+  const codigo = req.params.codigo;
+
+  // Query para remover o item no banco de dados
+  const sql = `DELETE FROM produtos WHERE Codigo = '${codigo}'`;
+
+  // Executa a query no banco de dados
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error('Erro ao remover item:', error);
+      res.status(500).json({ message: 'Erro ao remover item' });
+    } else {
+      console.log('Item removido com sucesso!');
+      res.status(200).json({ message: 'Item removido com sucesso!' });
+    }
+  });
+});
+
+// ====================================
+
+app.put('/atualizar-item/:codigo', (req, res) => {
+  const codigo = req.params.codigo;
+  const quantidade = req.body.quantidade;
+  const operacao = req.body.operacao; // 'entrada' ou 'saida'
+
+  // Executa a query de atualização
+  let query;
+  if (operacao === 'entrada') {
+    query = `UPDATE produtos SET Entrada = Entrada + ? WHERE Codigo = ?`;
+    query = `UPDATE produtos SET Estoque = Estoque + ? WHERE Codigo = ?`;
+
+  } else if (operacao === 'saida') {
+    query = `UPDATE produtos SET Saida = Saida + ? WHERE Codigo = ?`;
+    query = `UPDATE produtos SET Estoque = Estoque - ? WHERE Codigo = ?`;
+  }
+
+  //paramentros     ?           ?
+  const values = [quantidade, codigo];
+
+  connection.query(query, values, (error, result) => {
+    if (error) {
+      console.error('Erro ao atualizar item:', error);
+      res.status(500).json({ error: 'Erro ao atualizar item' });
+    } else {
+      console.log('Item atualizado com sucesso!');
+      res.status(200).json({ success: 'Item atualizado com sucesso' });
+    }
+  });
+});
+
+
+
 // Rota de erro para lidar com rotas não correspondentes
 app.use((req, res, next) => {
   res.setHeader('Content-Type', 'application/json');

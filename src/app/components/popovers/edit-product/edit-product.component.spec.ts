@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PopoverServicosComponent } from './popover-servicos.component';
+import { EditProductComponent } from './edit-product.component';
 
-describe('PopoverServicosComponent', () => {
-  let component: PopoverServicosComponent;
-  let fixture: ComponentFixture<PopoverServicosComponent>;
+describe('EditProductComponent', () => {
+  let component: EditProductComponent;
+  let fixture: ComponentFixture<EditProductComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopoverServicosComponent ],
+      declarations: [ EditProductComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PopoverServicosComponent);
+    fixture = TestBed.createComponent(EditProductComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

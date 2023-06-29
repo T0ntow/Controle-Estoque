@@ -3,8 +3,7 @@ import { ProductsService } from 'services/products.service';
 import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
 import * as e from 'cors';
-
-
+import { EditProductComponent } from '../popovers/edit-product/edit-product.component';
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -86,5 +85,20 @@ export class ProdutosComponent implements OnInit {
   getMarks() {
     this.marcas = Array.from(new Set(this.products.map(product => product.Marca)));
   }
+  
+  async openPopoverEdit(event: any, product: any) {
+    const popover = await this.popoverController.create({
+      component: EditProductComponent,
+      event: event,
 
+      componentProps: {
+        product: product
+
+      },
+    });
+
+    await popover.present();
+  }
+ 
+  
 }

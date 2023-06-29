@@ -17,30 +17,27 @@
 
       <form [formGroup]="newProductForm">
         <ion-item color="contrast">
-          <ion-label position="stacked">Código</ion-label>
-          <ion-input formControlName="Codigo" type="number"></ion-input>
+          <ion-input formControlName="Codigo" label="Codigo" type="number" labelPlacement="floating" placeholder="Código do produto"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-label position="stacked">Nome</ion-label>
-          <ion-input formControlName="Produto" type="text"></ion-input>
+          <ion-input formControlName="Produto" label="Nome" type="text" labelPlacement="floating" placeholder="Nome do produto"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-label position="stacked">Marca</ion-label>
-          <ion-input formControlName="Marca" type="text"></ion-input>
+          <ion-input formControlName="Marca" label="Marca" type="text" labelPlacement="floating" placeholder="Marca do produto"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-label position="stacked">Data</ion-label>
-          <ion-input formControlName="Data" type="date"></ion-input>
+          <ion-input formControlName="Data" [(ngModel)]="data" label="Data" type="date" labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-label position="stacked">Estoque</ion-label>
-          <ion-input formControlName="Estoque" type="number"></ion-input>
+          <ion-input formControlName="Estoque" label="Estoque" type="number" labelPlacement="floating" placeholder="Estoque inicial"></ion-input>
         </ion-item>
+
       </form>
+      
       
     </ion-card-content>
   </ion-card>

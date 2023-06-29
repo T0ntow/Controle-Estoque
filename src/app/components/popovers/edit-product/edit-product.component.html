@@ -1,0 +1,28 @@
+<ion-card>
+  <ion-title color="contrast">{{product.Produto}} </ion-title>
+
+  <ion-item [button]="true" id="new-entry" color="dark">Nova Entrada</ion-item>
+
+  <ion-popover trigger="new-entry" side="start" class="ion-padding" color="dark">
+    <ng-template color="contrast">
+      <ion-input color="contrast" [(ngModel)]="entryValue" type="number" placeholder="Digite a quantidade" min="1"> </ion-input>
+      <ion-button (click)="newEntry()">OK</ion-button>
+    </ng-template>
+  </ion-popover>
+
+  <ion-item [button]="true" id="new-exit" color="dark">Nova Saída</ion-item>
+
+  <ion-popover trigger="new-exit" side="start" class="ion-padding" color="dark">
+    <ng-template color="contrast">
+      <ion-input color="contrast"  [(ngModel)]="exitValue" type="number"  placeholder="Digite a quantidade" min="1"></ion-input>
+      <ion-button (click)="newExit()">OK</ion-button>
+    </ng-template>
+  </ion-popover>
+
+  <ion-item button color="dark">
+    Editar
+  </ion-item>
+  <ion-item button color="dark" (click)="removerItem()">
+    Remover
+  </ion-item>
+</ion-card>
