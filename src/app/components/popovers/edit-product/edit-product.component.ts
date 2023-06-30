@@ -3,8 +3,8 @@ import { PopoverController } from '@ionic/angular';
 import { Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductsService } from 'services/products.service';
+import { ModalEditProductComponent } from '../../modals/modal-edit-product/modal-edit-product.component';
 import { ModalController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-edit-product',
@@ -12,9 +12,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./edit-product.component.scss'],
 })
 export class EditProductComponent implements OnInit {
-
   @Input() product: any;
-
   entryValue!: number;
   exitValue!: number;
 
@@ -23,9 +21,8 @@ export class EditProductComponent implements OnInit {
     private productsService: ProductsService,
     private popoverController: PopoverController,
     private modalCtrl: ModalController,
-  ) {
+  ) { }
 
-  }
   ngOnInit() {
     console.log(this.product);
   }
@@ -64,10 +61,7 @@ export class EditProductComponent implements OnInit {
             console.error('Erro ao atualizar item:', error);
           },
         });
-    }  else {
-      
     }
-   
   }
 
   newEntry() {
@@ -76,6 +70,17 @@ export class EditProductComponent implements OnInit {
 
   newExit() {
     this.updateProduct(this.exitValue, 'saida');
+  }
+
+
+  async openModalEdit() {
+    const modal = await this.modalCtrl.create({
+      component: ModalEditProductComponent,
+      componentProps: {
+        product: this.product
+      },
+    });
+    modal.present();
   }
 
 }

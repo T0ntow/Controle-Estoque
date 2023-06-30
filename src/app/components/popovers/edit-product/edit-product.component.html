@@ -19,10 +19,10 @@
     </ng-template>
   </ion-popover>
 
-  <ion-item button color="dark">
+  <ion-item button color="dark" (click)="openModalEdit()">
     Editar
   </ion-item>
-  <ion-item button color="dark" (click)="removerItem()">
+  <ion-item button color="danger" (click)="removerItem()">
     Remover
   </ion-item>
 </ion-card>

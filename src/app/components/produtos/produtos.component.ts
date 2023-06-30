@@ -93,8 +93,8 @@ export class ProdutosComponent implements OnInit {
 
       componentProps: {
         product: product
-
       },
+      
     });
 
     await popover.present();

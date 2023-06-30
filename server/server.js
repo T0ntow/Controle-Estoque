@@ -116,6 +116,35 @@ app.put('/atualizar-item/:codigo', (req, res) => {
   });
 });
 
+// ================================
+
+app.put('/editar-produto/:codigo', (req, res) => {
+  const codigoAntigo = req.params.codigo;
+  const novoProduto = req.body;
+  
+  // Execute a atualização do produto no banco de dados
+  const query = `UPDATE produtos SET Codigo = ?, Produto = ?, Marca = ?, Data = ?, Estoque = ?, Entrada = ?, Saida = ? WHERE Codigo = ?`;
+
+  const values = [
+    novoProduto.Codigo,
+    novoProduto.Produto,
+    novoProduto.Marca,
+    novoProduto.Data,
+    novoProduto.Estoque,
+    novoProduto.Entrada,
+    novoProduto.Saida,
+    codigoAntigo
+  ];
+
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      console.error('Erro ao editar o produto:', err);
+      res.status(500).json({ error: 'Erro ao editar o produto' });
+    } else {
+      res.status(200).json({ message: 'Produto atualizado com sucesso' });
+    }
+  });
+});
 
 
 // Rota de erro para lidar com rotas não correspondentes

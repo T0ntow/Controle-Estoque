@@ -3,23 +3,26 @@
     <ion-buttons slot="start">
       <ion-button color="contrast" (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="success" (click)="confirm()" [disabled]="newProductForm.invalid"
-        [strong]="true">Confirmar</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
 
+    <ion-buttons slot="end">
+      <ion-button color="success" (click)="confirm()" [disabled]="editProductForm.invalid"
+      [strong]="true">Confirmar</ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <ion-card class="card">
     <ion-card-content color="contrast">
 
-      <form [formGroup]="newProductForm">
+      <form [formGroup]="editProductForm">
+        
         <ion-item color="contrast">
           <ion-input formControlName="Codigo" label="Codigo" type="number" labelPlacement="floating" placeholder="Código do produto"></ion-input>
         </ion-item>
-      
+        
         <ion-item color="contrast">
           <ion-input formControlName="Produto" label="Nome" type="text" labelPlacement="floating" placeholder="Nome do produto"></ion-input>
         </ion-item>
@@ -35,7 +38,14 @@
         <ion-item color="contrast">
           <ion-input formControlName="Estoque" label="Estoque" type="number" labelPlacement="floating" placeholder="Estoque inicial"></ion-input>
         </ion-item>
-        
+
+        <ion-item color="contrast">
+          <ion-input formControlName="Entrada" label="Entrada" type="number" labelPlacement="floating" placeholder="Entrada"></ion-input>
+        </ion-item>
+
+        <ion-item color="contrast">
+          <ion-input formControlName="Saida" label="Saida" type="number" labelPlacement="floating" placeholder="Saida"></ion-input>
+        </ion-item>
 
       </form>
       

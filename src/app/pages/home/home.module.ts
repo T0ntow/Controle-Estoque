@@ -9,6 +9,8 @@ import { HomePageRoutingModule } from './home-routing.module';
 //components
 import { ProdutosComponent } from '../../components/produtos/produtos.component';
 import { ModalNewProductComponent } from '../../components/modals/modal-new-product/modal-new-product.component';
+import { ModalEditProductComponent } from 'src/app/components/modals/modal-edit-product/modal-edit-product.component';
+
 //modulo http
 import { HttpClientModule } from '@angular/common/http';
 //modulo form
@@ -27,7 +29,8 @@ import { EditProductComponent } from 'src/app/components/popovers/edit-product/e
     HomePage,
     ProdutosComponent,
     ModalNewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ModalEditProductComponent
   ]
 })
 export class HomePageModule {}
