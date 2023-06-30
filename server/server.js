@@ -96,12 +96,10 @@ app.put('/atualizar-item/:codigo', (req, res) => {
   // Executa a query de atualização
   let query;
   if (operacao === 'entrada') {
-    query = `UPDATE produtos SET Entrada = Entrada + ? WHERE Codigo = ?`;
-    query = `UPDATE produtos SET Estoque = Estoque + ? WHERE Codigo = ?`;
+    query = `UPDATE produtos SET Entrada = Entrada + ${quantidade}, Estoque = Estoque + ${quantidade} WHERE Codigo = ${codigo}`;
 
   } else if (operacao === 'saida') {
-    query = `UPDATE produtos SET Saida = Saida + ? WHERE Codigo = ?`;
-    query = `UPDATE produtos SET Estoque = Estoque - ? WHERE Codigo = ?`;
+    query = `UPDATE produtos SET Saida = Saida + ${quantidade}, Estoque = Estoque - ${quantidade} WHERE Codigo = ${codigo}`;
   }
 
   //paramentros     ?           ?

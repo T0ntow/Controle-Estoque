@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'services/products.service';
 import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
-import * as e from 'cors';
 import { EditProductComponent } from '../popovers/edit-product/edit-product.component';
+
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
