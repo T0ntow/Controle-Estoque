@@ -15,9 +15,14 @@
       <ion-content>
 
         <ion-item color="dark">
-          <ion-select placeholder="Marcas" (ionChange)="filterProductsByMarca($event)">
+          <ion-select placeholder="Marcas" [(ngModel)]="selectedMark" (ionChange)="filterProducts('mark')">
             <ion-select-option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</ion-select-option>
           </ion-select>
+        </ion-item>
+
+        <ion-item color="dark">
+          <ion-label>Data:</ion-label>
+          <ion-input type="date" [(ngModel)]="selectedDate" (ionChange)="filterProducts('date')" ></ion-input>
         </ion-item>
 
         <ion-item color="danger" button (click)="removeFilters()">Remover Filtros</ion-item>
