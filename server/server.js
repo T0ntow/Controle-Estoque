@@ -119,21 +119,20 @@ app.put('/atualizar-item/:codigo', (req, res) => {
 // ================================
 
 app.put('/editar-produto/:codigo', (req, res) => {
-  const codigoAntigo = req.params.codigo;
+  const codigo = req.params.codigo;
   const novoProduto = req.body;
   
   // Execute a atualização do produto no banco de dados
-  const query = `UPDATE produtos SET Codigo = ?, Produto = ?, Marca = ?, Data = ?, Estoque = ?, Entrada = ?, Saida = ? WHERE Codigo = ?`;
+  const query = `UPDATE produtos SET Produto = ?, Marca = ?, Data = ?, Estoque = ?, Entrada = ?, Saida = ? WHERE Codigo = ?`;
 
   const values = [
-    novoProduto.Codigo,
     novoProduto.Produto,
     novoProduto.Marca,
     novoProduto.Data,
     novoProduto.Estoque,
     novoProduto.Entrada,
     novoProduto.Saida,
-    codigoAntigo
+    codigo
   ];
 
   connection.query(query, values, (err, result) => {

@@ -14,6 +14,10 @@ export class ModalNewProductComponent implements OnInit {
   newProductForm: FormGroup = new FormGroup({});
   url = 'http://localhost:3001/enviar-dados';
   data!: string; // propriedade para armazenar a data atual
+  products: any[] = [];
+
+  lastProduct: any;
+  formData: any;
 
   setDataAtual() {
     const dataAtual = new Date();
@@ -27,11 +31,12 @@ export class ModalNewProductComponent implements OnInit {
     private http: HttpClient
   ) {
     this.setDataAtual();
+    this.getLastProduct();
    }
 
   ngOnInit() {
     this.newProductForm = this.formBuilder.group({
-      Codigo: ['', [Validators.required]],
+      Codigo: [''],
       Produto: ['', [Validators.required]],
       Marca: ['', [Validators.required]],
       Data: ['', [Validators.required]],
@@ -47,8 +52,12 @@ export class ModalNewProductComponent implements OnInit {
 
   confirm() {
     if (this.newProductForm.valid) {
-      const formData = this.newProductForm.value;
+      
+      const newCodigo = this.lastProduct.Codigo + 1;
+      this.newProductForm.patchValue({Codigo: newCodigo})
 
+      const formData = this.newProductForm.value;
+      
       this.http.post('http://localhost:3001/enviar-dados', formData).subscribe({
         next: (response: any) => {
           console.log('Dados enviados com sucesso!');
@@ -67,5 +76,25 @@ export class ModalNewProductComponent implements OnInit {
 
     return this.modalCtrl.dismiss(null, 'confirm');
   }
+ 
+  getLastProduct() {
+    this.productsService.getProducts().subscribe({
+      next: (data: any) => {
+        this.products = data as any[];
+  
+        if (this.products.length > 0) {
+          this.lastProduct = this.products[this.products.length - 1];
+
+        } else {
+          console.log("O array está vazio.");
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao obter os produtos:', error);
+      }
+    });
+  }
+  
+
 
 }

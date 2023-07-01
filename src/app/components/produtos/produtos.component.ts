@@ -65,6 +65,8 @@ export class ProdutosComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
+        console.log(this.products);
+        
         this.formatDates(); // Chame a função formatDates após obter os produtos
         this.filteredProducts = this.products;
         this.getMarks(); // Chame a função getMarks após obter os produtos

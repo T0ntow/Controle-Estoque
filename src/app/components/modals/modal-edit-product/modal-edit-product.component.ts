@@ -33,7 +33,6 @@ export class ModalEditProductComponent implements OnInit {
 
   ngOnInit() {
     this.editProductForm = this.formBuilder.group({
-      Codigo: [this.product.Codigo, [Validators.required]],
       Produto: [this.product.Produto, [Validators.required]],
       Marca: [this.product.Marca, [Validators.required]],
       Data: [this.product.Data, [Validators.required]],
