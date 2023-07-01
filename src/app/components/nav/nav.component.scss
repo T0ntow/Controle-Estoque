@@ -31,56 +31,7 @@ ion-header {
 
             ion-item {
                 margin: 0px 10px;
-                height: 100%;
-                
-                .caixa {
-                    animation: show .4s;
-                    display: flex;
-                    flex-direction: row;
-                    border: 2px solid #fff;
-
-                    border-radius: 5px;
-                    width: 350px;
-                    height: 100%;
-
-                    justify-content: center;
-                }
             }
         }
     }
 }
-
-
-//criar menu
-@media screen and (max-width: 1024px) {
-    ion-header {
-
-        ion-toolbar {
-
-            #menu-button {
-                display: block;
-            }
-
-            ion-list{
-                display: none;
-            }
-        }
-       
-    }
-}
-
-// @media screen and (max-width: 500px) {
-//     ion-header {
-//         flex-direction: column;
-
-//         ion-toolbar ion-list {
-//             float: unset;
-//             display: flex;
-
-//             ion-item {
-//                 margin: none;
-//                 font-size: .8rem;
-//             }
-//         }
-//     }
-// }
