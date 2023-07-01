@@ -22,7 +22,8 @@
 
         <ion-item color="dark">
           <ion-label>Data:</ion-label>
-          <ion-input type="date" [(ngModel)]="selectedDate" (ionChange)="filterProducts('date')" ></ion-input>
+          
+          <ion-input label="Data" type="date" labelPlacement="floating" placeholder="Data" (ionChange)="filterProducts('date')"></ion-input>
         </ion-item>
 
         <ion-item color="danger" button (click)="removeFilters()">Remover Filtros</ion-item>
