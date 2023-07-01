@@ -6,18 +6,12 @@
 
     ion-searchbar {
         width: 320px;
-        max-width: 320px;
     }
 
     ion-button {
         font-weight: bold;
-        width: 100px;
+        width: 150px;
     }
-
-    ion-select {
-        color: black;
-    }
- 
 }
 
 ion-content {
@@ -28,12 +22,10 @@ ion-content {
     }
 }
 
-
-
 .table-container {
     flex-wrap: nowrap;
     overflow: auto;
-  
+
     .table-row {
         flex-wrap: nowrap;
         width: 100%;
@@ -46,7 +38,7 @@ ion-content {
 
             padding: 10px;
             margin: 5px;
-            font-size: .9rem;
+            font-size: 0.9rem;
             border-radius: 5px;
         }
 
@@ -68,15 +60,29 @@ ion-content {
 
         #edit-product:hover {
             background-color: rgb(195, 195, 195);
-            transition: all .2s;
+            transition: all 0.2s;
         }
 
-        
         .table-header {
             background-color: #eaeaea;
             font-size: 1rem;
             font-weight: bold;
             position: sticky;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #box-filters {
+        display: flex;
+        flex-direction: column;
+
+        ion-searchbar {
+            width: 95%;
+        }
+
+        ion-button {
+            width: 70%;
         }
 
     }

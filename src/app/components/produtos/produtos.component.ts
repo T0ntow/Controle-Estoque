@@ -17,6 +17,8 @@ export class ProdutosComponent implements OnInit {
   filteredProducts: any[] = [];
   selectedMark: string = '';
 
+  sortOrder: string = "asc"; // Valor padrão é "asc" para ordem crescente
+
   constructor(
     private productService: ProductsService,
     private popoverController: PopoverController) {
@@ -78,6 +80,13 @@ export class ProdutosComponent implements OnInit {
     });
   }
 
+  sortProducts() {
+    if (this.sortOrder === "asc") {
+      this.products.sort((a, b) => a.Codigo - b.Codigo);
+    } else if (this.sortOrder === "desc") {
+      this.products.sort((a, b) => b.Codigo - a.Codigo);
+    }
+  }
   formatDates() {
     this.products.forEach(product => {
       product.Data = format(new Date(product.Data), 'dd/MM/yyyy');

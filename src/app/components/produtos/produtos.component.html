@@ -3,6 +3,13 @@
     (ionChange)="searchProducts($event)"></ion-searchbar>
   <ion-button color="contrast" id="popover-filters"> Filtros </ion-button>
 
+  <ion-button color="contrast">
+    <ion-select  color="contrast" [(ngModel)]="sortOrder" (ionChange)="sortProducts()">
+      <ion-select-option value="asc">Crescente</ion-select-option>
+      <ion-select-option value="desc">Decrescente</ion-select-option>
+    </ion-select>
+  </ion-button>
+
   <ion-popover trigger="popover-filters">
     <ng-template>
       <ion-content>
