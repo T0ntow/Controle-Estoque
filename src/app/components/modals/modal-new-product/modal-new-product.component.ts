@@ -52,30 +52,30 @@ export class ModalNewProductComponent implements OnInit {
 
   confirm() {
     if (this.newProductForm.valid) {
-      
-      const newCodigo = this.lastProduct.Codigo + 1;
-      this.newProductForm.patchValue({Codigo: newCodigo})
-
+      //soma 1 caso tenha produto caso não 0
+      const newCodigo = this.lastProduct ? this.lastProduct.Codigo + 1 : 0;
+      this.newProductForm.patchValue({ Codigo: newCodigo });
+  
       const formData = this.newProductForm.value;
-      
+  
       this.http.post('http://localhost:3001/enviar-dados', formData).subscribe({
         next: (response: any) => {
           console.log('Dados enviados com sucesso!');
-
-          this.productsService.updateObservableProducts()
+          this.productsService.updateObservableProducts();
           this.modalCtrl.dismiss(null, 'confirm');
         },
         error: (error: any) => {
           console.error('Erro ao enviar dados:', error);
         }
       });
-
     } else {
       console.log('Formulário inválido');
     }
-
+  
     return this.modalCtrl.dismiss(null, 'confirm');
   }
+  
+
  
   getLastProduct() {
     this.productsService.getProducts().subscribe({
