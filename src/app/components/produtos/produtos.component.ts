@@ -11,8 +11,6 @@ import { utcToZonedTime } from 'date-fns-tz';
   styleUrls: ['./produtos.component.scss'],
 })
 
-
-
 export class ProdutosComponent implements OnInit {
   searchTerm: string = "";
   products: any[] = [];
@@ -25,6 +23,7 @@ export class ProdutosComponent implements OnInit {
   selectedDate!: string;
   selectedMark: string = '';
 
+  errorGetProducts: boolean = false;
 
   constructor(
     private productService: ProductsService,
@@ -100,6 +99,7 @@ export class ProdutosComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao obter os produtos:', error);
+        this.errorGetProducts = true;
       }
     });
   }

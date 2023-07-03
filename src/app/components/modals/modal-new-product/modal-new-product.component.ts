@@ -75,8 +75,6 @@ export class ModalNewProductComponent implements OnInit {
     return this.modalCtrl.dismiss(null, 'confirm');
   }
   
-
- 
   getLastProduct() {
     this.productsService.getProducts().subscribe({
       next: (data: any) => {
