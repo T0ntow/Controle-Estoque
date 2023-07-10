@@ -17,7 +17,7 @@ connection.connect((err) => {
   if (err) {
     console.error('Erro ao conectar-se ao MySQL:', err);
     return;
-  }
+  }             
   console.log('Conexão com o MySQL estabelecida!');
 });
 
