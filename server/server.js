@@ -4,6 +4,11 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+import { sql } from "@vercel/postgres";
+
+const likes = 100;
+const { rows } = await sql`SELECT * FROM posts WHERE likes > ${likes};`;
+
 // Configuração da conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
   host: '127.0.0.1',
