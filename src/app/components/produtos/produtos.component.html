@@ -1,10 +1,10 @@
 <div id="box-filters">
-  <ion-searchbar color="contrast" placeholder="Pesquise por um produto"
+  <ion-searchbar color="secondary" placeholder="Pesquise por um produto"
     (ionChange)="searchProducts($event)"></ion-searchbar>
-  <ion-button color="contrast" id="popover-filters"> Filtros </ion-button>
+  <ion-button color="secondary" id="popover-filters"> Filtros </ion-button>
 
-  <ion-button color="contrast">
-    <ion-select color="contrast" [(ngModel)]="sortOrder" (ionChange)="sortProducts()">
+  <ion-button color="secondary">
+    <ion-select color="secondary" [(ngModel)]="sortOrder" (ionChange)="sortProducts()">
       <ion-select-option value="asc">Crescente</ion-select-option>
       <ion-select-option value="desc">Decrescente</ion-select-option>
     </ion-select>
@@ -35,44 +35,43 @@
 
 </div>
 
-<ion-content color="contrast" *ngIf="products.length >= 1 && errorGetProducts == false">
-  <ion-card color="contrast">
-    <ion-grid class="table-container" color="contrast">
-      <ion-row class="table-row">
-        <ion-col class="table-col table-header" color="contrast">Codigo</ion-col>
-        <ion-col class="table-col table-header">Produto</ion-col>
-        <ion-col class="table-col table-header">Marca</ion-col>
-        <ion-col class="table-col table-header">Data</ion-col>
-        <ion-col class="table-col table-header">Estoque</ion-col>
-        <ion-col class="table-col table-header">Entrada</ion-col>
-        <ion-col class="table-col table-header">Saida</ion-col>
-      </ion-row>
-
-      <ion-row class="table-row" *ngFor="let product of filteredProducts">
-        <ion-col class="table-col">{{ product.Codigo }}</ion-col>
-        <ion-col class="table-col">{{ product.Produto }}</ion-col>
-        <ion-col class="table-col">{{ product.Marca }}</ion-col>
-        <ion-col class="table-col">{{ product.Data }}</ion-col>
-        <ion-col class="table-col">{{ product.Estoque }}</ion-col>
-        <ion-col class="table-col">{{ product.Entrada }}</ion-col>
-        <ion-col class="table-col">{{ product.Saida }}</ion-col>
-        <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-col>
-      </ion-row>
+<ng-container>
+  <ion-card>
+    <ion-grid class="table-container">
+        <ion-row class="table-row">
+          <ion-col class="table-col table-header">Codigo</ion-col>
+          <ion-col class="table-col table-header">Produto</ion-col>
+          <ion-col class="table-col table-header">Marca</ion-col>
+          <ion-col class="table-col table-header">Data</ion-col>
+          <ion-col class="table-col table-header">Estoque</ion-col>
+          <ion-col class="table-col table-header">Entrada</ion-col>
+          <ion-col class="table-col table-header">Saida</ion-col>
+        </ion-row>
+        <ion-row class="table-row" *ngFor="let product of filteredProducts">
+          <ion-col class="table-col">{{ product.Codigo }}</ion-col>
+          <ion-col class="table-col">{{ product.Produto }}</ion-col>
+          <ion-col class="table-col">{{ product.Marca }}</ion-col>
+          <ion-col class="table-col">{{ product.Data }}</ion-col>
+          <ion-col class="table-col">{{ product.Estoque }}</ion-col>
+          <ion-col class="table-col">{{ product.Entrada }}</ion-col>
+          <ion-col class="table-col">{{ product.Saida }}</ion-col>
+          <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-col>
+          
+        </ion-row>
 
     </ion-grid>
   </ion-card>
 
-</ion-content>
+</ng-container>
 
-<ion-card *ngIf="errorGetProducts == true; " color="contrast">
+<ion-card *ngIf="errorGetProducts == true; " color="secondary">
   <ion-title>Falha ao recuperar itens</ion-title>
 </ion-card>
 
 <ng-template #semProdutos>
-  <ion-card color="contrast">
+  <ion-card color="secondary">
     <ion-title>Sem produtos</ion-title>
   </ion-card>
 </ng-template>
-

@@ -15,7 +15,7 @@ export class ProdutosComponent implements OnInit {
   searchTerm: string = "";
   products: any[] = [];
   marcas: string[] = [];
-  filteredProducts: any[] = [];
+  // filteredProducts: any[] = [];
 
   selectedFilter: string | null = null; // Valor inicial é null
 
@@ -30,13 +30,107 @@ export class ProdutosComponent implements OnInit {
     private popoverController: PopoverController) {
     this.productService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
-      this.getProducts()
+      // this.getProducts()
     })
   }
 
   ngOnInit() {
-    this.getProducts()
+    // this.getProducts()
   }
+
+  filteredProducts = [
+    {
+      Codigo: 1,
+      Produto: 'Produto 1',
+      Marca: 'Marca A',
+      Data: '2023-10-11',
+      Estoque: 100,
+      Entrada: 50,
+      Saida: 20,
+    },
+    {
+      Codigo: 2,
+      Produto: 'Produto 2',
+      Marca: 'Marca B',
+      Data: '2023-10-10',
+      Estoque: 75,
+      Entrada: 30,
+      Saida: 25,
+    },
+    {
+      Codigo: 3,
+      Produto: 'Produto 3',
+      Marca: 'Marca C',
+      Data: '2023-10-09',
+      Estoque: 60,
+      Entrada: 40,
+      Saida: 10,
+    },
+    {
+      Codigo: 4,
+      Produto: 'Produto 4',
+      Marca: 'Marca A',
+      Data: '2023-10-08',
+      Estoque: 80,
+      Entrada: 45,
+      Saida: 15,
+    },
+    {
+      Codigo: 5,
+      Produto: 'Produto 5',
+      Marca: 'Marca D',
+      Data: '2023-10-07',
+      Estoque: 120,
+      Entrada: 60,
+      Saida: 30,
+    },
+    {
+      Codigo: 6,
+      Produto: 'Produto 6',
+      Marca: 'Marca B',
+      Data: '2023-10-06',
+      Estoque: 90,
+      Entrada: 55,
+      Saida: 35,
+    },
+    {
+      Codigo: 7,
+      Produto: 'Produto 7',
+      Marca: 'Marca A',
+      Data: '2023-10-05',
+      Estoque: 110,
+      Entrada: 70,
+      Saida: 40,
+    },
+    {
+      Codigo: 8,
+      Produto: 'Produto 8',
+      Marca: 'Marca C',
+      Data: '2023-10-04',
+      Estoque: 70,
+      Entrada: 50,
+      Saida: 20,
+    },
+    {
+      Codigo: 9,
+      Produto: 'Produto 9',
+      Marca: 'Marca D',
+      Data: '2023-10-03',
+      Estoque: 85,
+      Entrada: 45,
+      Saida: 40,
+    },
+    {
+      Codigo: 10,
+      Produto: 'Produto 10',
+      Marca: 'Marca B',
+      Data: '2023-10-02',
+      Estoque: 95,
+      Entrada: 60,
+      Saida: 30,
+    },
+  ];
+  
 
   filterProducts(filterType: string) {
     this.selectedFilter = filterType;

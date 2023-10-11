@@ -15,8 +15,7 @@
 }
 
 ion-content {
-    height: 90%;
-
+    height: 100vh;
     ion-card {
         padding: 5px;
     }
@@ -33,7 +32,10 @@ ion-content {
         .table-col {
             flex-wrap: nowrap;
 
-            min-width: 100px;
+            width: 170px;
+            min-width: 170px;
+            max-width: 170px;
+
             background-color: #fff;
 
             padding: 10px;
@@ -70,9 +72,13 @@ ion-content {
             position: sticky;
         }
     }
+
 }
 
 @media screen and (max-width: 600px) {
+    .table-container {
+        height: 65vh;
+    }
     #box-filters {
         display: flex;
         flex-direction: column;

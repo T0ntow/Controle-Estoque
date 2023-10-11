@@ -22,6 +22,4 @@ export class ProductsService {
   getProducts() {
     return this.http.get(this.apiUrl);
   }
-
-
 }

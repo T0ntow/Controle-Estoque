@@ -1,6 +1,11 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 #container {
-    margin-top: 10vh;
-    height: 90vh;
-    max-height: 90vh;
+    height: 95vh;
     overflow: hidden;
 }
+

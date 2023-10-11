@@ -1,0 +1,69 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    #signup-box {
+        height: 550px;
+        width: 450px;
+        background-color: #fff;
+
+        ion-card {
+            padding: 0;
+            margin: 0;
+
+            border-radius: 10px;
+        }
+
+        ion-card-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+
+            padding: 0;
+            margin: 0;
+
+            #signup-link {
+                color: #000;
+                text-transform: uppercase;
+                font-weight: bolder;
+                margin: 0;
+                width: 100%;
+                text-align: center;
+
+                padding: 10px;
+                font-size: 1.4rem;
+                text-decoration: none;
+            }
+
+            .selected-signup {
+                background-color: var(--ion-color-secondary) !important;
+                color: #fff !important;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        ion-card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            height: 90%;
+
+            color: #000;
+
+            ion-input {
+                background-color: #d9d9d9;
+                text-indent: 10px;
+            }
+
+            span {
+                text-align: center;
+            }
+        }
+
+    }
+}
