@@ -20,32 +20,30 @@
       <form [formGroup]="editProductForm">
         
         <ion-item color="contrast">
-          <ion-input formControlName="Produto" label="Nome" type="text" labelPlacement="floating" placeholder="Nome do produto"></ion-input>
+          <ion-input formControlName="nome" label="Nome" type="text" labelPlacement="floating" placeholder="Nome do produto"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-input formControlName="Marca" label="Marca" type="text" labelPlacement="floating" placeholder="Marca do produto"></ion-input>
+          <ion-input formControlName="marca" label="Marca" type="text" labelPlacement="floating" placeholder="Marca do produto"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-input formControlName="Data" [(ngModel)]="data" label="Data" type="date" labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
+          <ion-input formControlName="data_inscricao" [(ngModel)]="data" label="Data" type="date" labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-input formControlName="Estoque" label="Estoque" type="number" labelPlacement="floating" placeholder="Estoque inicial"></ion-input>
+          <ion-input formControlName="estoque_inicial" label="Estoque" type="number" labelPlacement="floating" placeholder="Estoque inicial"></ion-input>
         </ion-item>
 
         <ion-item color="contrast">
-          <ion-input formControlName="Entrada" label="Entrada" type="number" labelPlacement="floating" placeholder="Entrada"></ion-input>
+          <ion-input formControlName="entrada" label="Entrada" type="number" labelPlacement="floating" placeholder="Entrada"></ion-input>
         </ion-item>
 
         <ion-item color="contrast">
-          <ion-input formControlName="Saida" label="Saida" type="number" labelPlacement="floating" placeholder="Saida"></ion-input>
+          <ion-input formControlName="saida" label="Saida" type="number" labelPlacement="floating" placeholder="Saida"></ion-input>
         </ion-item>
 
       </form>
-      
-      
     </ion-card-content>
   </ion-card>
 </ion-content>

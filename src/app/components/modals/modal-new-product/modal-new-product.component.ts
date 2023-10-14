@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { ProductsService } from 'services/products.service';
 import { format } from 'date-fns';
+import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 
 @Component({
   selector: 'app-modal-new-product',
   templateUrl: './modal-new-product.component.html',
   styleUrls: ['./modal-new-product.component.scss'],
 })
+
 export class ModalNewProductComponent implements OnInit {
   newProductForm: FormGroup = new FormGroup({});
-  url = 'http://localhost:3001/enviar-dados';
   data!: string; // propriedade para armazenar a data atual
   products: any[] = [];
 
@@ -27,22 +27,21 @@ export class ModalNewProductComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private productsService: ProductsService,
+    private productsSqlService: ProductsSqlService,
     private http: HttpClient
   ) {
     this.setDataAtual();
     this.getLastProduct();
-   }
+  }
 
   ngOnInit() {
     this.newProductForm = this.formBuilder.group({
-      Codigo: [''],
-      Produto: ['', [Validators.required]],
-      Marca: ['', [Validators.required]],
-      Data: ['', [Validators.required]],
-      Estoque: ['', [Validators.required]],
-      Entrada: [0],
-      Saida: [0],
+      nome: ['', [Validators.required]],
+      marca: ['', [Validators.required]],
+      data_inscricao: ['', [Validators.required]],
+      estoque_inicial: ['', [Validators.required]],
+      entrada: [0],
+      saida: [0],
     });
   }
 
@@ -52,47 +51,43 @@ export class ModalNewProductComponent implements OnInit {
 
   confirm() {
     if (this.newProductForm.valid) {
-      //soma 1 caso tenha produto caso não 0
-      const newCodigo = this.lastProduct ? this.lastProduct.Codigo + 1 : 0;
-      this.newProductForm.patchValue({ Codigo: newCodigo });
-  
       const formData = this.newProductForm.value;
-  
-      this.http.post('http://localhost:3001/enviar-dados', formData).subscribe({
-        next: (response: any) => {
-          console.log('Dados enviados com sucesso!');
-          this.productsService.updateObservableProducts();
+      console.log(formData);
+
+      this.productsSqlService.newProduct(formData).subscribe({
+        next: (response) => {
+          // A solicitação foi bem-sucedida, você pode lidar com a resposta aqui, se necessário.
+          console.log('Produto adicionado com sucesso:', response);
+          
+          // Aqui você pode realizar a ação desejada após a adição bem-sucedida, como fechar o modal.
           this.modalCtrl.dismiss(null, 'confirm');
         },
-        error: (error: any) => {
-          console.error('Erro ao enviar dados:', error);
+        error: (error) => {
+          // A solicitação encontrou um erro, você pode lidar com o erro aqui, se necessário.
+          console.error('Erro ao adicionar o produto:', error);
         }
-      });
-    } else {
-      console.log('Formulário inválido');
+      })
     }
-  
-    return this.modalCtrl.dismiss(null, 'confirm');
   }
-  
-  getLastProduct() {
-    this.productsService.getProducts().subscribe({
-      next: (data: any) => {
-        this.products = data as any[];
-  
-        if (this.products.length > 0) {
-          this.lastProduct = this.products[this.products.length - 1];
 
-        } else {
-          console.log("O array está vazio.");
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao obter os produtos:', error);
-      }
-    });
+
+  getLastProduct() {
+    // this.productsService.getProducts().subscribe({
+    //   next: (data: any) => {
+    //     this.products = data as any[];
+
+    //     if (this.products.length > 0) {
+    //       this.lastProduct = this.products[this.products.length - 1];
+
+    //     } else {
+    //       console.log("O array está vazio.");
+    //     }
+    //   },
+    //   error: (error) => {
+    //     console.error('Erro ao obter os produtos:', error);
+    //   }
+    // });
   }
-  
 
 
 }

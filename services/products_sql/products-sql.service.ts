@@ -7,10 +7,20 @@ import { HttpClient } from '@angular/common/http';
 export class ProductsSqlService {
   private apiUrl = 'http://localhost:3000/produtos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllProducts() {
     return this.http.get(this.apiUrl);
   }
-  
+
+  newProduct(productData: any) {
+    return this.http.post('http://localhost:3000/adicionar-produto', productData);
+  }
+
+  editProduct(productData: any) {
+    console.log("productData.id", productData.id);
+    
+    return this.http.put(`http://localhost:3000/editar-produto/${productData.id}`, productData)
+  }
+
 }
