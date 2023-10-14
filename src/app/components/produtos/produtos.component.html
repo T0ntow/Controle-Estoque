@@ -47,14 +47,14 @@
           <ion-col class="table-col table-header">Entrada</ion-col>
           <ion-col class="table-col table-header">Saida</ion-col>
         </ion-row>
-        <ion-row class="table-row" *ngFor="let product of filteredProducts">
-          <ion-col class="table-col">{{ product.Codigo }}</ion-col>
-          <ion-col class="table-col">{{ product.Produto }}</ion-col>
-          <ion-col class="table-col">{{ product.Marca }}</ion-col>
-          <ion-col class="table-col">{{ product.Data }}</ion-col>
-          <ion-col class="table-col">{{ product.Estoque }}</ion-col>
-          <ion-col class="table-col">{{ product.Entrada }}</ion-col>
-          <ion-col class="table-col">{{ product.Saida }}</ion-col>
+        <ion-row class="table-row" *ngFor="let product of products">
+          <ion-col class="table-col">{{ product.id }}</ion-col>
+          <ion-col class="table-col">{{ product.nome }}</ion-col>
+          <ion-col class="table-col">{{ product.marca }}</ion-col>
+          <ion-col class="table-col">{{ product.data_inscricao }}</ion-col>
+          <ion-col class="table-col">{{ product.estoque_inicial }}</ion-col>
+          <ion-col class="table-col">{{ product.entrada }}</ion-col>
+          <ion-col class="table-col">{{ product.saida}}</ion-col>
           <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
             <ion-icon name="create-outline"></ion-icon>
           </ion-col>
