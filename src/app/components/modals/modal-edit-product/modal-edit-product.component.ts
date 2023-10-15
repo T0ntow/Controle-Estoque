@@ -5,11 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
+
 @Component({
   selector: 'app-modal-edit-product',
   templateUrl: './modal-edit-product.component.html',
   styleUrls: ['./modal-edit-product.component.scss'],
 })
+
 export class ModalEditProductComponent implements OnInit {
   @Input() product: any;
   editProductForm: FormGroup = new FormGroup({});
@@ -49,18 +51,18 @@ export class ModalEditProductComponent implements OnInit {
     if (this.editProductForm.valid) {
       const formData = this.editProductForm.value;
       const id = this.product.id; // Obtém o ID do produto
-  
+
       // Adicione o ID aos dados do formulário
-      formData.id = id; 
-  
+      formData.id = id;
+
       console.log(id);
       console.log(formData);
-  
+
       this.productsSqlService.editProduct(formData).subscribe({
         next: (response) => {
           // A solicitação foi bem-sucedida, você pode lidar com a resposta aqui, se necessário.
           console.log('Produto editado com sucesso:', response);
-  
+
           // Aqui você pode realizar a ação desejada após a edição bem-sucedida, como fechar o modal.
           this.modalCtrl.dismiss(null, 'confirm');
         },
@@ -71,5 +73,4 @@ export class ModalEditProductComponent implements OnInit {
       });
     }
   }
-  
 }

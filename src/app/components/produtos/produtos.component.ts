@@ -4,8 +4,8 @@ import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
 import { EditProductComponent } from '../popovers/edit-product/edit-product.component';
 import { utcToZonedTime } from 'date-fns-tz';
-
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
+
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -39,36 +39,41 @@ export class ProdutosComponent implements OnInit {
     this.getProductsFromSql()
   }
 
+  formatarData(data: string | number | Date) {
+    const dataInscricao = new Date(data);
+    return format(dataInscricao, 'dd/MM/yyyy');
+  }
+
   filterProducts(filterType: string) {
     this.selectedFilter = filterType;
-  
+
     const timeZone = 'America/Sao_Paulo'; // Fuso horário desejado
-  
+
     let filteredProducts = this.products;
-  
+
     if (this.selectedFilter === 'date' && this.selectedDate) {
       const zonedDate = utcToZonedTime(this.selectedDate, timeZone);
       // Formatar a data selecionada no formato 'DD/MM/YYYY'
       const formattedDate = format(zonedDate, 'dd/MM/yyyy');
-  
+
       // Filtrar por data
       filteredProducts = filteredProducts.filter(product =>
         product.Data === formattedDate
       );
     }
-  
+
     else if (this.selectedFilter === 'mark' && this.selectedMark) {
       // Filtrar por marca
       filteredProducts = filteredProducts.filter(product =>
         product.Marca.toLowerCase() === this.selectedMark.toLowerCase()
       );
     }
-  
+
     this.filteredProducts = filteredProducts;
-  
+
     console.log(this.filteredProducts);
   }
-  
+
   removeFilters() {
     this.selectedFilter = '';
     this.selectedMark = '';
@@ -108,16 +113,16 @@ export class ProdutosComponent implements OnInit {
   sortProducts() {
     //copia dos produtos filrados
     let sortedProducts = [...this.filteredProducts];
-  
+
     if (this.sortOrder === "asc") {
       sortedProducts.sort((a, b) => a.Codigo - b.Codigo);
     } else if (this.sortOrder === "desc") {
       sortedProducts.sort((a, b) => b.Codigo - a.Codigo);
     }
-  
+
     this.filteredProducts = sortedProducts;
   }
-  
+
 
   formatDates() {
     this.products.forEach(product => {
@@ -143,8 +148,6 @@ export class ProdutosComponent implements OnInit {
     await popover.present();
   }
 
-  //
-
   getProductsFromSql() {
     this.productsSqlService.getAllProducts().subscribe({
       next: (data: any) => {
@@ -157,6 +160,4 @@ export class ProdutosComponent implements OnInit {
       }
     });
   }
-
-
 }
