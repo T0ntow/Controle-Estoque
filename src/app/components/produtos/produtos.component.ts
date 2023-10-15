@@ -21,6 +21,8 @@ export class ProdutosComponent implements OnInit {
 
   sortOrder: string = "asc"; // Valor padrão é "asc" para ordem crescente
   selectedDate!: string;
+  selectedValidate!: string;
+
   selectedMark: string = '';
 
   errorGetProducts: boolean = false;
@@ -39,47 +41,54 @@ export class ProdutosComponent implements OnInit {
     this.getProductsFromSql()
   }
 
-  formatarData(data: string | number | Date) {
-    const dataInscricao = new Date(data);
-    return format(dataInscricao, 'dd/MM/yyyy');
-  }
-
   filterProducts(filterType: string) {
     this.selectedFilter = filterType;
-
+  
     const timeZone = 'America/Sao_Paulo'; // Fuso horário desejado
-
-    let filteredProducts = this.products;
-
+    let filteredProducts = this.products; // Comece com todos os produtos
+  
     if (this.selectedFilter === 'date' && this.selectedDate) {
       const zonedDate = utcToZonedTime(this.selectedDate, timeZone);
-      // Formatar a data selecionada no formato 'DD/MM/YYYY'
       const formattedDate = format(zonedDate, 'dd/MM/yyyy');
-
+      console.log("filtro data", formattedDate);
+  
       // Filtrar por data
       filteredProducts = filteredProducts.filter(product =>
-        product.Data === formattedDate
+        product.data_inscricao === formattedDate
       );
     }
-
-    else if (this.selectedFilter === 'mark' && this.selectedMark) {
+  
+    if (this.selectedFilter === 'validate' && this.selectedValidate) {
+      const zonedDate = utcToZonedTime(this.selectedValidate, timeZone);
+      const formattedDate = format(zonedDate, 'dd/MM/yyyy');
+      console.log("filtro data", formattedDate);
+  
+      // Filtrar por data
+      filteredProducts = filteredProducts.filter(product =>
+        product.data_validade === formattedDate
+      );
+    }
+  
+    if (this.selectedFilter === 'mark' && this.selectedMark) {
+      console.log("filtro marca");
+  
       // Filtrar por marca
       filteredProducts = filteredProducts.filter(product =>
-        product.Marca.toLowerCase() === this.selectedMark.toLowerCase()
+        product.marca.toLowerCase() === this.selectedMark.toLowerCase()
       );
     }
-
+  
+    // Agora a variável filteredProducts contém os produtos filtrados de acordo com todos os filtros aplicados
     this.filteredProducts = filteredProducts;
-
-    console.log(this.filteredProducts);
   }
-
+  
+  
   removeFilters() {
     this.selectedFilter = '';
     this.selectedMark = '';
     this.selectedDate = '';
 
-    this.getProducts();
+    this.getProductsFromSql();
     this.popoverController.dismiss(); //fechar popover
   }
 
@@ -128,12 +137,13 @@ export class ProdutosComponent implements OnInit {
 
   formatDates() {
     this.products.forEach(product => {
-      product.Data = format(new Date(product.Data), 'dd/MM/yyyy');
+      product.data_inscricao = format(new Date(product.data_inscricao), 'dd/MM/yyyy');
+      product.data_validade = format(new Date(product.data_validade), 'dd/MM/yyyy');
     });
   }
 
   getMarks() {
-    this.marcas = Array.from(new Set(this.products.map(product => product.Marca)));
+    this.marcas = Array.from(new Set(this.products.map(product => product.marca)));
   }
 
   async openPopoverEdit(event: any, product: any) {
@@ -156,7 +166,9 @@ export class ProdutosComponent implements OnInit {
         this.products = data as any[];
         this.filteredProducts = this.products;
 
-        console.log(this.products);
+        console.log(this.filteredProducts);
+        this.formatDates(); // Chame a função formatDates após obter os produtos
+        this.getMarks(); // Chame a função getMarks após obter os produtos
       },
       error: (error) => {
         console.error('Erro ao obter os produtos:', error);

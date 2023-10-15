@@ -21,10 +21,13 @@
         </ion-item>
 
         <ion-item color="dark">
-          <ion-label>Data:</ion-label>
-
-          <ion-input label="Data" type="date" labelPlacement="floating" placeholder="Data"
+          <ion-input label="Data de cadastro" [(ngModel)]="selectedDate" type="date" labelPlacement="floating" placeholder="Data"
             (ionChange)="filterProducts('date')"></ion-input>
+        </ion-item>
+
+        <ion-item color="dark">
+          <ion-input label="Data de validade" [(ngModel)]="selectedValidate" type="date" labelPlacement="floating" placeholder="Data"
+            (ionChange)="filterProducts('validate')"></ion-input>
         </ion-item>
 
         <ion-item color="danger" button (click)="removeFilters()">Remover Filtros</ion-item>
@@ -48,8 +51,8 @@
     <ion-row class="table-row" *ngFor="let product of filteredProducts">
       <ion-col class="table-col">{{ product.nome }}</ion-col>
       <ion-col class="table-col">{{ product.marca }}</ion-col>
-      <ion-col class="table-col">{{ formatarData(product.data_inscricao) }}</ion-col>
-      <ion-col class="table-col">{{ formatarData(product.data_validade) }}</ion-col>
+      <ion-col class="table-col">{{ product.data_inscricao }}</ion-col>
+      <ion-col class="table-col">{{ product.data_validade }}</ion-col>
       <ion-col class="table-col">{{ product.estoque_inicial }}</ion-col>
       <ion-col class="table-col">{{ product.entrada }}</ion-col>
       <ion-col class="table-col">{{ product.saida}}</ion-col>
