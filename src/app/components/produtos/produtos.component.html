@@ -63,11 +63,11 @@
     </ion-row>
     <ion-row class="table-row" *ngFor="let product of filteredProducts">
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.nome }}</ion-col>
+      <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.marca }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.data_inscricao }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.data_validade }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.estoque_inicial }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.entrada }}</ion-col>
-      <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.marca }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.saida}}</ion-col>
       <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
         <ion-icon name="create-outline"></ion-icon>
@@ -75,7 +75,6 @@
     </ion-row>
   </ion-grid>
 </main>
-
 
 <ion-card *ngIf="products.length === 0">
   <ion-title>Sem produtos</ion-title>
