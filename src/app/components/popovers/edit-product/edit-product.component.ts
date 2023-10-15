@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModalEditProductComponent } from '../../modals/modal-edit-product/modal-edit-product.component';
 import { ModalController } from '@ionic/angular';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
+
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -18,8 +19,8 @@ export class EditProductComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private productsSqlService: ProductsSqlService,
-    private popoverController: PopoverController,
     private modalCtrl: ModalController,
+    private popoverController: PopoverController
   ) { }
 
   ngOnInit() {
@@ -41,27 +42,6 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct(quantidade: number, operacao: string) {
-    // const codigo = this.product.Codigo;
-    // const data = {
-    //   quantidade: quantidade,
-    //   operacao: operacao,
-    // };
-
-    // if (quantidade >= 1) {
-    //   this.http
-    //     .put(`http://localhost:3001/atualizar-item/${codigo}`, data)
-    //     .subscribe({
-    //       next: (response: any) => {
-    //         console.log('Item atualizado com sucesso!');
-    //         this.productsService.updateObservableProducts();
-    //         this.popoverController.dismiss(null, 'confirm');
-    //       },
-    //       error: (error: any) => {
-    //         console.error('Erro ao atualizar item:', error);
-    //       },
-    //     });
-    // }
-
     const data = {
       quantidade: quantidade,
       operacao: operacao,
@@ -69,20 +49,18 @@ export class EditProductComponent implements OnInit {
     };
 
     console.log("id", data.id);
-    
 
     if(quantidade > 1) {
       this.productsSqlService.atualizarItem(data).subscribe({
-        next: (data: any) => {
-          this.popoverController.dismiss(null, 'confirm')
+        next: (response: any) => {
+          this.productsSqlService.updateObservableProducts();
+          this.popoverController.dismiss();
         },
         error: (error: any) => {
           console.error('Erro ao atualizar item:', error);
-          this.popoverController.dismiss(null, 'confirm');
+          this.popoverController.dismiss(null, 'cancel');
         }
       });
-    } else {
-      // mostrar erro
     }
   }
 

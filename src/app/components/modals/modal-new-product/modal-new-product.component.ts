@@ -56,10 +56,8 @@ export class ModalNewProductComponent implements OnInit {
 
       this.productsSqlService.newProduct(formData).subscribe({
         next: (response) => {
-          // A solicitação foi bem-sucedida, você pode lidar com a resposta aqui, se necessário.
           console.log('Produto adicionado com sucesso:', response);
-          
-          // Aqui você pode realizar a ação desejada após a adição bem-sucedida, como fechar o modal.
+          this.productsSqlService.updateObservableProducts();
           this.modalCtrl.dismiss(null, 'confirm');
         },
         error: (error) => {

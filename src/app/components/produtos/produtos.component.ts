@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'services/products.service';
 import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
 import { EditProductComponent } from '../popovers/edit-product/edit-product.component';
 import { utcToZonedTime } from 'date-fns-tz';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
-
+import { ProductsService } from 'services/products.service';
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -27,11 +26,12 @@ export class ProdutosComponent implements OnInit {
   errorGetProducts: boolean = false;
 
   constructor(
-    private productService: ProductsService,
     private popoverController: PopoverController,
+    private productsService: ProductsService,
     private productsSqlService: ProductsSqlService) {
-    this.productService.getObservableProducts().subscribe(isUpdated => {
+    this.productsSqlService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
+      this.getProductsFromSql()
     })
   }
 
@@ -93,7 +93,7 @@ export class ProdutosComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe({
+    this.productsService.getProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
         console.log(this.products);

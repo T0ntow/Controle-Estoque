@@ -63,7 +63,7 @@ export class ModalEditProductComponent implements OnInit {
           // A solicitação foi bem-sucedida, você pode lidar com a resposta aqui, se necessário.
           console.log('Produto editado com sucesso:', response);
 
-          // Aqui você pode realizar a ação desejada após a edição bem-sucedida, como fechar o modal.
+          this.productsSqlService.updateObservableProducts();
           this.modalCtrl.dismiss(null, 'confirm');
         },
         error: (error) => {
