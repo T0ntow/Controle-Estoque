@@ -18,9 +18,11 @@ export class ProductsSqlService {
   }
 
   editProduct(productData: any) {
-    console.log("productData.id", productData.id);
-    
     return this.http.put(`http://localhost:3000/editar-produto/${productData.id}`, productData)
+  }
+
+  atualizarItem(productData: any) {
+    return this.http.put(`http://localhost:3000/atualizar-produto/${productData.id}`, productData)
   }
 
 }
