@@ -27,18 +27,20 @@ export class EditProductComponent implements OnInit {
     console.log(this.product);
   }
 
-  removerItem() {
-    // const codigo = this.product.Codigo;
+  deleteProduct() {
+    const id = this.product.id;
+    console.log("id delete", id);
+    
 
-    // this.http.delete(`http://localhost:3001/remover-item/${codigo}`).subscribe({
-    //   next: (response: any) => {
-    //     this.productsService.updateObservableProducts();
-    //     this.popoverController.dismiss(null, 'confirm')
-    //   },
-    //   error: (error: any) => {
-    //     console.error('Erro ao remover item:', error);
-    //   }
-    // });
+    this.productsSqlService.deletarProduto(id).subscribe({
+      next: (response: any) => {
+        this.productsSqlService.updateObservableProducts();
+        this.popoverController.dismiss(null, 'confirm')
+      },
+      error: (error: any) => {
+        console.error('Erro ao remover produto:', error);
+      }
+    });
   }
 
   updateProduct(quantidade: number, operacao: string) {

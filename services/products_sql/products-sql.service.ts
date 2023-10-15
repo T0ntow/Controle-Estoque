@@ -40,4 +40,8 @@ export class ProductsSqlService {
     return this.http.put(`http://localhost:3000/atualizar-produto/${productData.id}`, productData)
   }
 
+  deletarProduto(id: number) {
+    return this.http.delete(`http://localhost:3000/deletar-produto/${id}`)
+  }
+
 }
