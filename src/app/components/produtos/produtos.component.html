@@ -61,8 +61,8 @@
       <ion-col class="table-col table-header">Entrada</ion-col>
       <ion-col class="table-col table-header">Saida</ion-col>
     </ion-row>
-    <ion-row class="table-row" *ngFor="let product of filteredProducts" [ngClass]="getColorClass(product)">
-      <ion-col class="table-col">{{ product.nome }}</ion-col>
+    <ion-row class="table-row" *ngFor="let product of filteredProducts">
+      <ion-col class="table-col"  [ngClass]="getColorClass(product)">{{ product.nome }}</ion-col>
       <ion-col class="table-col">{{ product.marca }}</ion-col>
       <ion-col class="table-col">{{ product.data_inscricao }}</ion-col>
       <ion-col class="table-col">{{ product.data_validade }}</ion-col>

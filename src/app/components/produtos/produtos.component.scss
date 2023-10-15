@@ -65,8 +65,8 @@ main {
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
     .table-container {
-      
         flex-wrap: nowrap;
         overflow: auto;
 
@@ -74,18 +74,7 @@ main {
             color: var(--ion-color-secondary);
         }
 
-        .red {
-            background-color: #e86868;
-        }
-
-        .green {
-            background-color: #63c463;
-        }
-
-        .yellow {
-            background-color: #d2d263;
-        }
-
+       
 
         .table-row {
             flex-wrap: nowrap;
@@ -108,9 +97,23 @@ main {
                 border-radius: 5px;
             }
 
+            .red {
+                background-color: #e86868;
+            }
+    
+            .green {
+                background-color: #63c463;
+            }
+    
+            .yellow {
+                background-color: #d2d263;
+            }
+    
+
             #edit-product {
-                max-width: 50px;
-                min-width: 50px;
+                max-width: 40px;
+                min-width: 40px;
+                height: 40px;
 
                 display: flex;
                 align-items: center;
@@ -119,8 +122,8 @@ main {
                 cursor: pointer;
 
                 ion-icon {
-                    width: 35px;
-                    height: 30px;
+                    width: 45px;
+                    height: 45px;
                 }
             }
 
