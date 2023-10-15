@@ -4,7 +4,6 @@ import { PopoverController } from '@ionic/angular';
 import { EditProductComponent } from '../popovers/update-product/edit-product.component';
 import { utcToZonedTime } from 'date-fns-tz';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
-import { ProductsService } from 'services/products.service';
 
 import { isBefore, differenceInDays } from 'date-fns';
 import { AlertController } from '@ionic/angular';
@@ -31,7 +30,6 @@ export class ProdutosComponent implements OnInit {
 
   constructor(
     private popoverController: PopoverController,
-    private productsService: ProductsService,
     private productsSqlService: ProductsSqlService,
     private alertController: AlertController
     ) {

@@ -7,10 +7,15 @@
 
       </ion-card-header>
       <ion-card-content>
-        <ion-input label="Email:" labelPlacement="stacked"></ion-input>
-        <ion-input label="Password:" labelPlacement="stacked"></ion-input>
 
-        <ion-button>Signup</ion-button>
+        <form [formGroup]="signupForm" >
+          <ion-input label="Username:" labelPlacement="stacked" formControlName="nome"></ion-input>
+          <ion-input label="Email:" type="email" labelPlacement="stacked" formControlName="email"></ion-input>
+          <ion-input label="Password:" type="password" labelPlacement="stacked" formControlName="senha"></ion-input>
+  
+          <ion-button type="submit" [disabled]="signupForm.invalid" (click)="newUser()">Signup</ion-button>
+        </form>
+
         <span>Already have an account? <a href="/login">Login</a></span>
       </ion-card-content>
     </ion-card>
