@@ -39,6 +39,7 @@ export class ModalNewProductComponent implements OnInit {
       nome: ['', [Validators.required]],
       marca: ['', [Validators.required]],
       data_inscricao: ['', [Validators.required]],
+      data_validade: ['', [Validators.required]],
       estoque_inicial: ['', [Validators.required]],
       entrada: [0],
       saida: [0],

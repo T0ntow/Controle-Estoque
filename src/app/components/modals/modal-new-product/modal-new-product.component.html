@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="contrast" (click)="cancel()">Cancelar</ion-button>
+      <ion-button (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button color="success" (click)="confirm()" [disabled]="newProductForm.invalid"
@@ -25,9 +25,13 @@
         </ion-item>
       
         <ion-item color="contrast">
-          <ion-input formControlName="data_inscricao" [(ngModel)]="data" label="Data" type="date" labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
+          <ion-input formControlName="data_inscricao" [(ngModel)]="data" label="Data Inscricação" type="date" labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
         </ion-item>
       
+        <ion-item color="contrast">
+          <ion-input formControlName="data_validade" label="Validade" type="date" labelPlacement="floating" placeholder="Data de validade"></ion-input>
+        </ion-item>
+
         <ion-item color="contrast">
           <ion-input formControlName="estoque_inicial" label="Estoque" type="number" labelPlacement="floating" placeholder="Estoque inicial"></ion-input>
         </ion-item>

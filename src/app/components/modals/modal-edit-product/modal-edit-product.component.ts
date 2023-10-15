@@ -16,33 +16,47 @@ export class ModalEditProductComponent implements OnInit {
   @Input() product: any;
   editProductForm: FormGroup = new FormGroup({});
   data!: string; // propriedade para armazenar a data atual
-
+  validade!: string;
+ 
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private http: HttpClient,
     private productsSqlService: ProductsSqlService,
-    private popoverController: PopoverController
-  ) {
-    this.setDataAtual();
-  }
-
-  setDataAtual() {
-    const dataAtual = new Date();
-    this.data = format(dataAtual, 'yyyy-MM-dd');
-  }
+  ) {}
 
   ngOnInit() {
     this.editProductForm = this.formBuilder.group({
       nome: [this.product.nome, [Validators.required]],
       marca: [this.product.marca, [Validators.required]],
       data_inscricao: [this.product.data_inscricao, [Validators.required]],
+      data_validade: [this.product.data_validade, [Validators.required]],
       estoque_inicial: [this.product.estoque_inicial, [Validators.required]],
       entrada: [this.product.entrada],
       saida: [this.product.saida],
     });
+    this.setDataAtual();
+    this.setValidade();
   }
 
+  setDataAtual() {
+    const dataAtual = new Date();
+    const dataFormatada = format(dataAtual, 'yyyy-MM-dd');
+    this.editProductForm.controls['data_inscricao'].setValue(dataFormatada);
+  }
+
+  setValidade() {
+    const dataValidade = this.product.data_validade;
+    console.log(dataValidade);
+    
+    const dataOriginal = new Date(dataValidade);
+    const ano = dataOriginal.getFullYear();
+    const mes = (dataOriginal.getMonth() + 1).toString().padStart(2, '0');
+    const dia = dataOriginal.getDate().toString().padStart(2, '0');
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+    
+    this.editProductForm.controls['data_validade'].setValue(dataFormatada);
+  }
+  
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }

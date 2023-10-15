@@ -38,19 +38,20 @@
   <ion-card>
     <ion-grid class="table-container">
         <ion-row class="table-row">
-          <ion-col class="table-col table-header">Codigo</ion-col>
           <ion-col class="table-col table-header">Produto</ion-col>
           <ion-col class="table-col table-header">Marca</ion-col>
-          <ion-col class="table-col table-header">Data</ion-col>
+          <ion-col class="table-col table-header">Data Inscricação</ion-col>
+          <ion-col class="table-col table-header">Validade</ion-col>
           <ion-col class="table-col table-header">Estoque</ion-col>
           <ion-col class="table-col table-header">Entrada</ion-col>
           <ion-col class="table-col table-header">Saida</ion-col>
         </ion-row>
         <ion-row class="table-row" *ngFor="let product of products">
-          <ion-col class="table-col">{{ product.id }}</ion-col>
           <ion-col class="table-col">{{ product.nome }}</ion-col>
           <ion-col class="table-col">{{ product.marca }}</ion-col>
           <ion-col class="table-col">{{ formatarData(product.data_inscricao) }}</ion-col>
+          <ion-col class="table-col">{{ formatarData(product.data_validade) }}</ion-col>
+
           <ion-col class="table-col">{{ product.estoque_inicial }}</ion-col>
           <ion-col class="table-col">{{ product.entrada }}</ion-col>
           <ion-col class="table-col">{{ product.saida}}</ion-col>
