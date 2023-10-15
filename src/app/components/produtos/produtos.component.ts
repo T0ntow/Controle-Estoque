@@ -7,6 +7,7 @@ import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 import { ProductsService } from 'services/products.service';
 
 import { isBefore, differenceInDays } from 'date-fns';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-produtos',
@@ -28,12 +29,12 @@ export class ProdutosComponent implements OnInit {
 
   selectedMark: string = '';
 
-  errorGetProducts: boolean = false;
-
   constructor(
     private popoverController: PopoverController,
     private productsService: ProductsService,
-    private productsSqlService: ProductsSqlService) {
+    private productsSqlService: ProductsSqlService,
+    private alertController: AlertController
+    ) {
     this.productsSqlService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
       this.getProductsFromSql()
@@ -136,10 +137,21 @@ export class ProdutosComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao obter os produtos:', error);
-        this.errorGetProducts = true;
+        this.alertErrorGetProducts()
       }
     });
   }
+
+  async alertErrorGetProducts() {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: 'Falha ao recuperar produtos!',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
 
   addExpirationColors() {
     const today = new Date();

@@ -1,6 +1,8 @@
-.card {
-    height: 95%;
-}
-ion-title {
-    text-align: center;
+form {
+    height: 100vh;
+    background-color: #ededed;
+
+    ion-item {
+        --background: transparent !important;
+    }
 }

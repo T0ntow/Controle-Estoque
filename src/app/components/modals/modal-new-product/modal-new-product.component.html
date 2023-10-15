@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header color="secondary">
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
@@ -8,36 +8,31 @@
         [strong]="true">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
-
 </ion-header>
 
-<ion-card class="card">
-  <ion-card-content color="contrast">
-    <form [formGroup]="newProductForm">
-      <ion-item color="contrast">
-        <ion-input formControlName="nome" label="Nome" type="text" labelPlacement="floating"
-          placeholder="Nome do produto"></ion-input>
-      </ion-item>
+<form [formGroup]="newProductForm">
+  <ion-item>
+    <ion-input formControlName="nome" label="Nome" type="text" labelPlacement="floating"
+      placeholder="Nome do produto"></ion-input>
+  </ion-item>
 
-      <ion-item color="contrast">
-        <ion-input formControlName="marca" label="Marca" type="text" labelPlacement="floating"
-          placeholder="Marca do produto"></ion-input>
-      </ion-item>
+  <ion-item>
+    <ion-input formControlName="marca" label="Marca" type="text" labelPlacement="floating"
+      placeholder="Marca do produto"></ion-input>
+  </ion-item>
 
-      <ion-item color="contrast">
-        <ion-input formControlName="data_inscricao" [(ngModel)]="data" label="Data Inscricação" type="date"
-          labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
-      </ion-item>
+  <ion-item>
+    <ion-input formControlName="data_inscricao" [(ngModel)]="data" label="Data Inscricação" type="date"
+      labelPlacement="floating" placeholder="Data de cadastro"></ion-input>
+  </ion-item>
 
-      <ion-item color="contrast">
-        <ion-input formControlName="data_validade" label="Validade" type="date" labelPlacement="floating"
-          placeholder="Data de validade"></ion-input>
-      </ion-item>
+  <ion-item>
+    <ion-input formControlName="data_validade" label="Validade" type="date" labelPlacement="floating"
+      placeholder="Data de validade"></ion-input>
+  </ion-item>
 
-      <ion-item color="contrast">
-        <ion-input formControlName="estoque_inicial" label="Estoque" type="number" labelPlacement="floating"
-          placeholder="Estoque inicial"></ion-input>
-      </ion-item>
-    </form>
-  </ion-card-content>
-</ion-card>
+  <ion-item>
+    <ion-input formControlName="estoque_inicial" label="Estoque" type="number" labelPlacement="floating"
+      placeholder="Estoque inicial"></ion-input>
+  </ion-item>
+</form>

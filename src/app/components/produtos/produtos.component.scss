@@ -12,7 +12,6 @@
         font-weight: bold;
         width: 150px;
     }
-
 }
     
 .farol-div {
@@ -20,7 +19,6 @@
     justify-content: center;
     flex-direction: column;
     padding: 10px;
-
 
     #button-green {
         --background: #63c463;
@@ -34,23 +32,20 @@
         --background: #d2d263;
     }
 }
-/* Estilo da barra de rolagem para todos os elementos scrollable */
+
 ::-webkit-scrollbar {
     width: 10px; /* Largura da barra de rolagem */
     background-color: #1f1f1f; /* Cor de fundo da barra de rolagem */
 }
 
-/* Estilo do "thumb" (a parte da barra de rolagem que você move) */
 ::-webkit-scrollbar-thumb {
     background-color: #004c63; /* Cor do "thumb" */
     border-radius: 5px; /* Borda arredondada do "thumb" */
 }
 
-/* Estilo do "track" (a parte da barra de rolagem que não está ocupada pelo "thumb") */
 ::-webkit-scrollbar-track {
     background-color: #18293493; /* Cor do "track" */
 }
-
 
 main {
     height: 75vh;
@@ -66,6 +61,8 @@ main {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 
+    position: relative;
+
     .table-container {
         flex-wrap: nowrap;
         overflow: auto;
@@ -73,8 +70,6 @@ main {
         .table-header {
             color: var(--ion-color-secondary);
         }
-
-       
 
         .table-row {
             flex-wrap: nowrap;
@@ -108,7 +103,6 @@ main {
             .yellow {
                 background-color: #d2d263;
             }
-    
 
             #edit-product {
                 max-width: 40px;

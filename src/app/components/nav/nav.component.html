@@ -2,17 +2,10 @@
   <ion-title>Produtos</ion-title>
 
   <ion-toolbar>
-
     <ion-buttons slot="end">
       <ion-menu-button id="menu-button"></ion-menu-button>
     </ion-buttons>
 
-    <ion-list>
-
-      <ion-item lines="none" button (click)="openModalCreatePrdouct()">
-        <ion-label color="dark">Novo Produto</ion-label>
-      </ion-item>
-      
-    </ion-list>
+    <ion-button slot="end" outline="fill" (click)="openModalCreatePrdouct()">Novo Produto</ion-button>
   </ion-toolbar>
 </ion-header>
