@@ -45,7 +45,7 @@
       <ion-col class="table-col table-header">Entrada</ion-col>
       <ion-col class="table-col table-header">Saida</ion-col>
     </ion-row>
-    <ion-row class="table-row" *ngFor="let product of products">
+    <ion-row class="table-row" *ngFor="let product of filteredProducts">
       <ion-col class="table-col">{{ product.nome }}</ion-col>
       <ion-col class="table-col">{{ product.marca }}</ion-col>
       <ion-col class="table-col">{{ formatarData(product.data_inscricao) }}</ion-col>

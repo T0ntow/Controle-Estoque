@@ -84,12 +84,14 @@ export class ProdutosComponent implements OnInit {
   }
 
   searchProducts(event: any) {
+    this.searchTerm = event.target.value;
     console.log("termo: " + this.searchTerm);
 
-    this.searchTerm = event.target.value;
     this.filteredProducts = this.products.filter(product =>
-      product.Produto.toLowerCase().includes(this.searchTerm.toLowerCase())
+      product.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    console.log(this.filteredProducts);
   }
 
   getProducts() {
@@ -152,6 +154,8 @@ export class ProdutosComponent implements OnInit {
     this.productsSqlService.getAllProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
+        this.filteredProducts = this.products;
+
         console.log(this.products);
       },
       error: (error) => {
