@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { format } from 'date-fns';
 import { PopoverController } from '@ionic/angular';
-import { EditProductComponent } from '../popovers/edit-product/edit-product.component';
+import { EditProductComponent } from '../popovers/update-product/edit-product.component';
 import { utcToZonedTime } from 'date-fns-tz';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 import { ProductsService } from 'services/products.service';
@@ -171,7 +171,7 @@ export class ProdutosComponent implements OnInit {
       this.filteredProducts = this.products.filter(product => product.colorClass === color);
     }
   }
-  
+
   getColorClass(product: any) {
     return product.colorClass; // Este campo deve conter a classe de cor (ex: 'green-light', 'yellow-light', 'red-light')
   }

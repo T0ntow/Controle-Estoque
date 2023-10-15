@@ -16,7 +16,7 @@ import { NavComponent } from 'src/app/components/nav/nav.component';
 import { HttpClientModule } from '@angular/common/http';
 //modulo form
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditProductComponent } from 'src/app/components/popovers/edit-product/edit-product.component';
+import { EditProductComponent } from 'src/app/components/popovers/update-product/edit-product.component';
 @NgModule({
   imports: [
     CommonModule,
