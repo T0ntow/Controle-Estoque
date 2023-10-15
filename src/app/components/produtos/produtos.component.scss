@@ -12,8 +12,28 @@
         font-weight: bold;
         width: 150px;
     }
-}
 
+}
+    
+.farol-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+
+
+    #button-green {
+        --background: #63c463;
+    }
+
+    #button-red {
+        --background: #e86868;
+    }
+
+    #button-yellow {
+        --background: #d2d263;
+    }
+}
 /* Estilo da barra de rolagem para todos os elementos scrollable */
 ::-webkit-scrollbar {
     width: 10px; /* Largura da barra de rolagem */
@@ -30,6 +50,7 @@
 ::-webkit-scrollbar-track {
     background-color: #18293493; /* Cor do "track" */
 }
+
 
 main {
     height: 75vh;
@@ -53,9 +74,24 @@ main {
             color: var(--ion-color-secondary);
         }
 
+        .red {
+            background-color: #e86868;
+        }
+
+        .green {
+            background-color: #63c463;
+        }
+
+        .yellow {
+            background-color: #d2d263;
+        }
+
+
         .table-row {
             flex-wrap: nowrap;
             width: 100%;
+            margin: 5px 0;
+            border-radius: 5px;
 
             .table-col {
                 flex-wrap: nowrap;

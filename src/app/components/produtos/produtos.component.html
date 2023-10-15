@@ -3,12 +3,25 @@
     (ionChange)="searchProducts($event)"></ion-searchbar>
   <ion-button color="secondary" id="popover-filters"> Filtros </ion-button>
 
-  <ion-button color="secondary">
-    <ion-select color="secondary" [(ngModel)]="sortOrder" (ionChange)="sortProducts()">
-      <ion-select-option value="asc">Crescente</ion-select-option>
-      <ion-select-option value="desc">Decrescente</ion-select-option>
-    </ion-select>
+  <ion-button color="secondary" id="popover-farol">
+    Farol
   </ion-button>
+
+  <ion-popover trigger="popover-farol">
+    <ng-template>
+      <ion-content>
+
+        <div class="farol-div">
+          <ion-button id="button-green" (click)="filterByColor('green')">Filtrar Verde</ion-button>
+          <ion-button id="button-yellow" (click)="filterByColor('yellow')">Filtrar Amarelo</ion-button>
+          <ion-button id="button-red" (click)="filterByColor('red')">Filtrar Vermelho</ion-button>
+        </div>
+          
+        <ion-item color="danger" button (click)="removeFilters()">Remover Farol</ion-item>
+
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 
   <ion-popover trigger="popover-filters">
     <ng-template>
@@ -21,13 +34,13 @@
         </ion-item>
 
         <ion-item color="dark">
-          <ion-input label="Data de cadastro" [(ngModel)]="selectedDate" type="date" labelPlacement="floating" placeholder="Data"
-            (ionChange)="filterProducts('date')"></ion-input>
+          <ion-input label="Data de cadastro" [(ngModel)]="selectedDate" type="date" labelPlacement="floating"
+            placeholder="Data" (ionChange)="filterProducts('date')"></ion-input>
         </ion-item>
 
         <ion-item color="dark">
-          <ion-input label="Data de validade" [(ngModel)]="selectedValidate" type="date" labelPlacement="floating" placeholder="Data"
-            (ionChange)="filterProducts('validate')"></ion-input>
+          <ion-input label="Data de validade" [(ngModel)]="selectedValidate" type="date" labelPlacement="floating"
+            placeholder="Data" (ionChange)="filterProducts('validate')"></ion-input>
         </ion-item>
 
         <ion-item color="danger" button (click)="removeFilters()">Remover Filtros</ion-item>
@@ -48,7 +61,7 @@
       <ion-col class="table-col table-header">Entrada</ion-col>
       <ion-col class="table-col table-header">Saida</ion-col>
     </ion-row>
-    <ion-row class="table-row" *ngFor="let product of filteredProducts">
+    <ion-row class="table-row" *ngFor="let product of filteredProducts" [ngClass]="getColorClass(product)">
       <ion-col class="table-col">{{ product.nome }}</ion-col>
       <ion-col class="table-col">{{ product.marca }}</ion-col>
       <ion-col class="table-col">{{ product.data_inscricao }}</ion-col>

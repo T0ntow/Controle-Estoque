@@ -5,6 +5,9 @@ import { EditProductComponent } from '../popovers/edit-product/edit-product.comp
 import { utcToZonedTime } from 'date-fns-tz';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 import { ProductsService } from 'services/products.service';
+
+import { isBefore, differenceInDays } from 'date-fns';
+
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -43,46 +46,46 @@ export class ProdutosComponent implements OnInit {
 
   filterProducts(filterType: string) {
     this.selectedFilter = filterType;
-  
+
     const timeZone = 'America/Sao_Paulo'; // Fuso horário desejado
     let filteredProducts = this.products; // Comece com todos os produtos
-  
+
     if (this.selectedFilter === 'date' && this.selectedDate) {
       const zonedDate = utcToZonedTime(this.selectedDate, timeZone);
       const formattedDate = format(zonedDate, 'dd/MM/yyyy');
       console.log("filtro data", formattedDate);
-  
+
       // Filtrar por data
       filteredProducts = filteredProducts.filter(product =>
         product.data_inscricao === formattedDate
       );
     }
-  
+
     if (this.selectedFilter === 'validate' && this.selectedValidate) {
       const zonedDate = utcToZonedTime(this.selectedValidate, timeZone);
       const formattedDate = format(zonedDate, 'dd/MM/yyyy');
       console.log("filtro data", formattedDate);
-  
+
       // Filtrar por data
       filteredProducts = filteredProducts.filter(product =>
         product.data_validade === formattedDate
       );
     }
-  
+
     if (this.selectedFilter === 'mark' && this.selectedMark) {
       console.log("filtro marca");
-  
+
       // Filtrar por marca
       filteredProducts = filteredProducts.filter(product =>
         product.marca.toLowerCase() === this.selectedMark.toLowerCase()
       );
     }
-  
+
     // Agora a variável filteredProducts contém os produtos filtrados de acordo com todos os filtros aplicados
     this.filteredProducts = filteredProducts;
   }
-  
-  
+
+
   removeFilters() {
     this.selectedFilter = '';
     this.selectedMark = '';
@@ -101,45 +104,6 @@ export class ProdutosComponent implements OnInit {
     );
 
     console.log(this.filteredProducts);
-  }
-
-  getProducts() {
-    this.productsService.getProducts().subscribe({
-      next: (data: any) => {
-        this.products = data as any[];
-        console.log(this.products);
-
-        this.formatDates(); // Chame a função formatDates após obter os produtos
-        this.filteredProducts = this.products;
-        this.getMarks(); // Chame a função getMarks após obter os produtos
-
-      },
-      error: (error) => {
-        console.error('Erro ao obter os produtos:', error);
-        this.errorGetProducts = true;
-      }
-    });
-  }
-
-  sortProducts() {
-    //copia dos produtos filrados
-    let sortedProducts = [...this.filteredProducts];
-
-    if (this.sortOrder === "asc") {
-      sortedProducts.sort((a, b) => a.Codigo - b.Codigo);
-    } else if (this.sortOrder === "desc") {
-      sortedProducts.sort((a, b) => b.Codigo - a.Codigo);
-    }
-
-    this.filteredProducts = sortedProducts;
-  }
-
-
-  formatDates() {
-    this.products.forEach(product => {
-      product.data_inscricao = format(new Date(product.data_inscricao), 'dd/MM/yyyy');
-      product.data_validade = format(new Date(product.data_validade), 'dd/MM/yyyy');
-    });
   }
 
   getMarks() {
@@ -164,16 +128,51 @@ export class ProdutosComponent implements OnInit {
     this.productsSqlService.getAllProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
-        this.filteredProducts = this.products;
-
-        console.log(this.filteredProducts);
-        this.formatDates(); // Chame a função formatDates após obter os produtos
+        // this.formatDates(); // Chame a função formatDates após obter os produtos
         this.getMarks(); // Chame a função getMarks após obter os produtos
+        this.addExpirationColors(); // Adicione a função para definir cores com base no vencimento
+
+        this.filteredProducts = this.products
       },
       error: (error) => {
         console.error('Erro ao obter os produtos:', error);
         this.errorGetProducts = true;
       }
     });
+  }
+
+  addExpirationColors() {
+    const today = new Date();
+
+    this.products.forEach(product => {
+      const expirationDate = new Date(product.data_validade);
+      const daysUntilExpiration = differenceInDays(expirationDate, today);
+
+      console.log("daysUntilExpiration", daysUntilExpiration);
+
+      if (daysUntilExpiration >= 60) {
+        product.colorClass = 'green'; // Produto vencido
+      }
+      if (daysUntilExpiration < 60) {
+        product.colorClass = 'yellow'; // Vencimento em até 1 mês
+      }
+      if (daysUntilExpiration < 30) {
+        product.colorClass = 'red'; // Vencimento em até 1 mês
+      }
+
+      product.data_inscricao = format(new Date(product.data_inscricao), 'dd/MM/yyyy');
+      product.data_validade = format(new Date(product.data_validade), 'dd/MM/yyyy');
+    });
+  }
+
+
+  filterByColor(color: string) {
+    if (color === 'green' || color === 'yellow' || color === 'red') {
+      this.filteredProducts = this.products.filter(product => product.colorClass === color);
+    }
+  }
+  
+  getColorClass(product: any) {
+    return product.colorClass; // Este campo deve conter a classe de cor (ex: 'green-light', 'yellow-light', 'red-light')
   }
 }
