@@ -34,44 +34,36 @@
   </ion-popover>
 </div>
 
-<ng-container>
-  <ion-card>
-    <ion-grid class="table-container">
-        <ion-row class="table-row">
-          <ion-col class="table-col table-header">Produto</ion-col>
-          <ion-col class="table-col table-header">Marca</ion-col>
-          <ion-col class="table-col table-header">Data Inscricação</ion-col>
-          <ion-col class="table-col table-header">Validade</ion-col>
-          <ion-col class="table-col table-header">Estoque</ion-col>
-          <ion-col class="table-col table-header">Entrada</ion-col>
-          <ion-col class="table-col table-header">Saida</ion-col>
-        </ion-row>
-        <ion-row class="table-row" *ngFor="let product of products">
-          <ion-col class="table-col">{{ product.nome }}</ion-col>
-          <ion-col class="table-col">{{ product.marca }}</ion-col>
-          <ion-col class="table-col">{{ formatarData(product.data_inscricao) }}</ion-col>
-          <ion-col class="table-col">{{ formatarData(product.data_validade) }}</ion-col>
+<main>
+  <ion-grid class="table-container">
+    <ion-row class="table-row">
+      <ion-col class="table-col table-header">Produto</ion-col>
+      <ion-col class="table-col table-header">Marca</ion-col>
+      <ion-col class="table-col table-header">Data Inscricação</ion-col>
+      <ion-col class="table-col table-header">Validade</ion-col>
+      <ion-col class="table-col table-header">Estoque</ion-col>
+      <ion-col class="table-col table-header">Entrada</ion-col>
+      <ion-col class="table-col table-header">Saida</ion-col>
+    </ion-row>
+    <ion-row class="table-row" *ngFor="let product of products">
+      <ion-col class="table-col">{{ product.nome }}</ion-col>
+      <ion-col class="table-col">{{ product.marca }}</ion-col>
+      <ion-col class="table-col">{{ formatarData(product.data_inscricao) }}</ion-col>
+      <ion-col class="table-col">{{ formatarData(product.data_validade) }}</ion-col>
+      <ion-col class="table-col">{{ product.estoque_inicial }}</ion-col>
+      <ion-col class="table-col">{{ product.entrada }}</ion-col>
+      <ion-col class="table-col">{{ product.saida}}</ion-col>
+      <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</main>
 
-          <ion-col class="table-col">{{ product.estoque_inicial }}</ion-col>
-          <ion-col class="table-col">{{ product.entrada }}</ion-col>
-          <ion-col class="table-col">{{ product.saida}}</ion-col>
-          <ion-col class="table-col ion-padding" id="edit-product" (click)="openPopoverEdit($event, product)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-col>
-          
-        </ion-row>
-
-    </ion-grid>
-  </ion-card>
-
-</ng-container>
-
-<ion-card *ngIf="errorGetProducts == true; " color="secondary">
+<ion-card *ngIf="errorGetProducts == true; ">
   <ion-title>Falha ao recuperar itens</ion-title>
 </ion-card>
 
-<ng-template #semProdutos>
-  <ion-card color="secondary">
-    <ion-title>Sem produtos</ion-title>
-  </ion-card>
-</ng-template>
+<ion-card *ngIf="products.length === 0">
+  <ion-title>Sem produtos</ion-title>
+</ion-card>
