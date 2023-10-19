@@ -1,0 +1,23 @@
+#box-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+
+    ion-searchbar {
+        width: 320px;
+    }
+
+    ion-button {
+        font-weight: bold;
+        width: 150px;
+    }
+}
+
+.texto-verde {
+    color: green;
+}
+
+.texto-vermelho {
+    color: red;
+}
