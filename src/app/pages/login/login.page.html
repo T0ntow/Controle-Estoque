@@ -5,10 +5,14 @@
         <ion-title id="login-title">Login</ion-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-input label="Email:" labelPlacement="stacked"></ion-input>
-        <ion-input label="Password:" labelPlacement="stacked"></ion-input>
+        
+        <form [formGroup]="loginForm" >
+          <ion-input label="Email:" labelPlacement="stacked" formControlName="email"></ion-input>
+          <ion-input label="Password:" labelPlacement="stacked" formControlName="senha"></ion-input>
+  
+          <ion-button (click)="login()">Login</ion-button>
+        </form>
 
-        <ion-button>Login</ion-button>
         <span>Dont have an account? <a href="/signup">Signup</a></span>
       </ion-card-content>
     </ion-card>

@@ -4,8 +4,6 @@ import { SignupSqlService } from 'services/signup/signup-sql.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { EmailService } from 'services/email/email.service';
-
-
 interface RegistrationResponse {
   message?: string;
   confirmationToken?: string;
@@ -48,7 +46,6 @@ export class SignupPage implements OnInit {
         next: (response: RegistrationResponse) => {
           console.log('Usuário cadastrado com sucesso:', response);
 
-          // Agora o TypeScript reconhecerá a propriedade confirmationToken na resposta da API.
           const confirmationToken = response.confirmationToken;
           const email = response.email;
           
@@ -67,11 +64,6 @@ export class SignupPage implements OnInit {
     }
   }
 
-  generateConfirmationToken() {
-    // Gere um token de confirmação único usando o crypto-js
-    // return token;
-  }
-
   sendConfirmationEmail(email: string, token: string) {
     const userData = {
       email: email,
@@ -83,6 +75,7 @@ export class SignupPage implements OnInit {
     this.emailService.sendConfirmationEmail(userData).subscribe({
       next: (response) => {
         console.log('E-mail enviado com sucesso:', response);
+        this.sendEmail()
       },
       error: async (error) => {
         console.error('Erro ao enviar emal:', error);
@@ -90,12 +83,20 @@ export class SignupPage implements OnInit {
     })
   }
 
-
-
   async presentSignupSuccessAlert() {
     const alert = await this.alertController.create({
       header: 'Cadastro bem-sucedido',
       message: 'Sua conta foi cadastrada com sucesso!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async sendEmail() {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: 'Foi enviado um e-mail para o proprietário, por favor aguarde a análise do seu cadastro',
       buttons: ['OK']
     });
 
@@ -112,6 +113,4 @@ export class SignupPage implements OnInit {
 
     await alert.present();
   }
-
-
 }
