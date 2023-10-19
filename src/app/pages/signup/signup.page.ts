@@ -3,12 +3,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignupSqlService } from 'services/signup/signup-sql.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { EmailService } from 'services/email/email.service';
+
+
+interface RegistrationResponse {
+  message?: string;
+  confirmationToken?: string;
+  email?: string;
+}
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
+
 export class SignupPage implements OnInit {
   signupForm: FormGroup;
 
@@ -16,7 +25,8 @@ export class SignupPage implements OnInit {
     private formBuilder: FormBuilder,
     private signupSqlService: SignupSqlService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private emailService: EmailService
   ) {
     this.signupForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -35,11 +45,16 @@ export class SignupPage implements OnInit {
       const userData = this.signupForm.value;
 
       this.signupSqlService.newUser(userData).subscribe({
-        next: async (response) => {
-          console.log('Usuario cadastrado com sucesso:', response);
-          await this.presentSignupSuccessAlert();
-          this.router.navigate(['/login']);
+        next: (response: RegistrationResponse) => {
+          console.log('Usuário cadastrado com sucesso:', response);
+
+          // Agora o TypeScript reconhecerá a propriedade confirmationToken na resposta da API.
+          const confirmationToken = response.confirmationToken;
+          const email = response.email;
+          
+          this.sendConfirmationEmail(email!, confirmationToken!)
         },
+
         error: async (error) => {
           console.error('Erro ao cadastrar usuario:', error);
 
@@ -52,16 +67,41 @@ export class SignupPage implements OnInit {
     }
   }
 
+  generateConfirmationToken() {
+    // Gere um token de confirmação único usando o crypto-js
+    // return token;
+  }
+
+  sendConfirmationEmail(email: string, token: string) {
+    const userData = {
+      email: email,
+      token: token
+    }
+
+    console.log("userData", userData);
+    
+    this.emailService.sendConfirmationEmail(userData).subscribe({
+      next: (response) => {
+        console.log('E-mail enviado com sucesso:', response);
+      },
+      error: async (error) => {
+        console.error('Erro ao enviar emal:', error);
+      }
+    })
+  }
+
+
+
   async presentSignupSuccessAlert() {
     const alert = await this.alertController.create({
       header: 'Cadastro bem-sucedido',
       message: 'Sua conta foi cadastrada com sucesso!',
       buttons: ['OK']
     });
-  
+
     await alert.present();
   }
-  
+
   async presentEmailInUseAlert() {
     const alert = await this.alertController.create({
       header: 'Erro',
@@ -69,7 +109,9 @@ export class SignupPage implements OnInit {
       message: 'O e-mail inserido já está associado a uma conta. Tente usar um e-mail diferente.',
       buttons: ['OK']
     });
-  
+
     await alert.present();
   }
+
+
 }
