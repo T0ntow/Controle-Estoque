@@ -1,17 +1,17 @@
-<app-nav></app-nav>
+<app-nav id="header"></app-nav>
 
 <ion-content>
   <div id="box-filters">
     <ion-searchbar (ionChange)="filtrarRegistros($event)" color="secondary"></ion-searchbar>
-    <ion-button color="secondary" (click)="imprimirRelatorio()">
-      Imprimir
-    </ion-button>
     <ion-button color="secondary" (click)="mostrarFiltro()">
       Filtro
     </ion-button>
+    <ion-button color="secondary" (click)="downloadPdf()">
+      Imprimir
+    </ion-button>
   </div>
 
-  <ion-list>
+  <ion-list id="content">
     <ion-item *ngFor="let registro of registros">
       <ion-label>
         <h2 [ngClass]="{'texto-verde': registro.tipo === 'Entrada', 'texto-vermelho': registro.tipo === 'Saída'}">
