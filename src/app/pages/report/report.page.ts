@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import jsPDF from 'jspdf'; // Import the jspdf library
-import html2canvas from 'html2canvas'
-// import html2pdf from 'html2pdf.js';
-import * as html2pdf from 'html2pdf.js';
+import { ReportService } from 'services/report/report.service';
 
 @Component({
   selector: 'app-report',
@@ -10,47 +8,51 @@ import * as html2pdf from 'html2pdf.js';
   styleUrls: ['./report.page.scss'],
 })
 
+
 export class ReportPage implements OnInit {
   registros: any[] = [];
+  entradas: any[] = [];
+  saidas: any[] = [];
+
   registrosFiltrados: any[] = []; // Nova lista para registros filtrados
   @ViewChild('content', { static: false }) content!: ElementRef;
 
-  constructor() { }
+  constructor(
+    private reportService: ReportService,
+  ) { }
 
   ngOnInit() {
-    this.registros = [
-      { tipo: 'Entrada', nomeProduto: 'Produto A', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto B', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto C', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto D', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto E', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto F', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto G', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto H', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto I', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto J', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto K', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto L', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto M', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto A', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto B', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto C', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto D', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto E', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto F', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto G', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto H', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto I', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto J', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-      { tipo: 'Saída', nomeProduto: 'Produto K', quantidade: 5, dataHora: '2023-10-18 14:30:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto L', quantidade: 8, dataHora: '2023-10-18 15:45:00' },
-      { tipo: 'Entrada', nomeProduto: 'Produto M', quantidade: 10, dataHora: '2023-10-18 10:00:00' },
-
-    ];
-
-    this.registrosFiltrados = this.registros;
+    this.getEntry();
+    this.getExit();
+    console.log("registros", this.registros);
   }
 
+  getEntry() {
+    this.reportService.getEntry().subscribe({
+      next: (response: any) => {
+        console.log('Entradas obtidas com sucesso:', response);
+        this.entradas = response; // Atribui a resposta a 'entradas'
+        this.registros.push({entradas: this.entradas})
+      },
+      error: (error) => {
+        console.error('Erro ao obter entradas:', error);
+      }
+    });
+  }
+  
+  getExit() {
+    this.reportService.getExit().subscribe({
+      next: (response: any) => {
+        console.log('Saídas obtidas com sucesso:', response);
+        this.saidas = response; // Atribui a resposta a 'saidas'
+        this.registros.push({saidas: this.saidas})
+      },
+      error: (error) => {
+        console.error('Erro ao obter saídas:', error);
+      }
+    });
+  }
+  
   filtrarRegistros(event: any) {
     const searchTerm = event.target.value;
     if (searchTerm) {

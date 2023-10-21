@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
 
     ion-searchbar {
         width: 320px;
@@ -11,6 +10,16 @@
     ion-button {
         font-weight: bold;
         width: 150px;
+    }
+}
+
+#content {
+    margin-top: 20px;
+
+    .item {
+        color: #000;
+        padding: 10px;
+        border-bottom: 1px solid gray;
     }
 }
 

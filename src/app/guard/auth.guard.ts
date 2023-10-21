@@ -14,6 +14,7 @@ export class AuthGuard {
       console.log("token verificado com sucesso!");
       return true; // O token é válido, permita o acesso à rota
     } else {
+      console.log("token não verificado");
       this.router.navigate(['/login']); // Redirecione o usuário para a página de login
       return false; // Não permita o acesso à rota
     }

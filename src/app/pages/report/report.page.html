@@ -10,16 +10,41 @@
       Imprimir
     </ion-button>
   </div>
+  
+  <main id="content">
+    <ion-title  class="texto-vermelho">
+      Saídas
+    </ion-title>
+  
+    <ion-list>
+      <div *ngFor="let registro of registros">
+        <ion-label class="item" *ngFor="let item of registro.saidas">
+          <ng-container *ngIf="item.nome_produto !== ''">
+            <h2>{{ item.nome_produto }}</h2>
+            <p>Quantidade: {{ item.quantidade }}</p>
+            <p>Data/Hora: {{ item.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+          </ng-container>
+        </ion-label>
+      </div>
+    </ion-list>
+  
+    <ion-title  class="texto-verde">
+      Entradas
+    </ion-title>
+  
+    <ion-list id="content">
+      <div *ngFor="let registro of registros">
+        <ion-label class="item" *ngFor="let item of registro.entradas">
+          <ng-container *ngIf="item.nome_produto !== ''">
+            <h2>{{ item.nome_produto }}</h2>
+            <p>Quantidade: {{ item.quantidade }}</p>
+            <p>Data/Hora: {{ item.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+          </ng-container>
+        </ion-label>
+      </div>
+    </ion-list>
+  </main>
 
-  <ion-list id="content">
-    <ion-item *ngFor="let registro of registros">
-      <ion-label>
-        <h2 [ngClass]="{'texto-verde': registro.tipo === 'Entrada', 'texto-vermelho': registro.tipo === 'Saída'}">
-          {{ registro.tipo }} de <span>{{ registro.nomeProduto }}</span>
-        </h2>
-        <p>Quantidade: {{ registro.quantidade }}</p>
-        <p>Data/Hora: {{ registro.dataHora }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+
+
 </ion-content>
