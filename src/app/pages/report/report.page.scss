@@ -13,6 +13,29 @@
     }
 }
 
+#header-exit,  #header-entry{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    width: 50%;
+
+    .texto-vermelho {
+        color: red;
+        margin: 10px;
+    }
+    .texto-verde {
+        color: green;
+        margin: 10px;
+    }
+
+    ion-button {
+        font-size: .8rem;
+    }
+    
+    
+}
+
 #content {
     margin-top: 20px;
 
@@ -23,10 +46,3 @@
     }
 }
 
-.texto-verde {
-    color: green;
-}
-
-.texto-vermelho {
-    color: red;
-}
