@@ -15,8 +15,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
-  { path: 'home/produtos', component: ProdutosComponent },
-  { path: 'report', loadChildren: () => import('./pages/report/report.module').then(m => m.ReportPageModule) },
+  { 
+    path: 'home/produtos', component: ProdutosComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'report', loadChildren: () => import('./pages/report/report.module').then(m => m.ReportPageModule),
+    canActivate: [AuthGuard],
+  },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
