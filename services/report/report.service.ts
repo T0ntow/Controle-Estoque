@@ -10,10 +10,10 @@ export class ReportService {
   ) { }
 
   getExit() {
-    return this.http.get('http://localhost:3005/saidas')
+    return this.http.get('https://node-mysql-api-exw0.onrender.com/saidas')
   }
 
   getEntry() {
-    return this.http.get('http://localhost:3005/entradas')
+    return this.http.get('https://node-mysql-api-exw0.onrender.com/entradas')
   }
 }
