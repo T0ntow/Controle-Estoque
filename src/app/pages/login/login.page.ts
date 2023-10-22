@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'services/login/login.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular'; // Importe o AlertController
-
+import { AlertController, LoadingController } from '@ionic/angular'; // Importe o AlertController
 
 interface AuthResponse {
   token?: string;
@@ -22,7 +21,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingCtrl: LoadingController
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
@@ -38,10 +38,12 @@ export class LoginPage implements OnInit {
 
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
+      this.showLoading()
 
       this.loginService.login(userData).subscribe({
 
         next: (response: AuthResponse) => {
+          this.loadingCtrl.dismiss()
           console.log('Usuário logado com sucesso:', response);
 
           if (response && response.token) {
@@ -51,6 +53,7 @@ export class LoginPage implements OnInit {
         },
 
         error: async (error) => {
+          this.loadingCtrl.dismiss()
           console.error('Erro ao logar usuário:', error);
 
           if(error.status === 403) {
@@ -63,6 +66,13 @@ export class LoginPage implements OnInit {
     }
   }
 
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Carregando...',
+    });
+
+    loading.present();
+  }
 
   async presentErrorAlert() {
     const alert = await this.alertController.create({

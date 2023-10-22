@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignupSqlService } from 'services/signup/signup-sql.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { EmailService } from 'services/email/email.service';
 interface RegistrationResponse {
   message?: string;
@@ -24,11 +24,12 @@ export class SignupPage implements OnInit {
     private signupSqlService: SignupSqlService,
     private router: Router,
     private alertController: AlertController,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private loadingCtrl: LoadingController
   ) {
     this.signupForm = this.formBuilder.group({
       nome: ['', Validators.required],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -41,9 +42,11 @@ export class SignupPage implements OnInit {
 
     if (this.signupForm.valid) {
       const userData = this.signupForm.value;
+      this.showLoading()
 
       this.signupSqlService.newUser(userData).subscribe({
         next: (response: RegistrationResponse) => {
+          this.loadingCtrl.dismiss()
           console.log('Usuário cadastrado com sucesso:', response);
 
           const confirmationToken = response.confirmationToken;
@@ -53,6 +56,7 @@ export class SignupPage implements OnInit {
         },
 
         error: async (error) => {
+          this.loadingCtrl.dismiss()
           console.error('Erro ao cadastrar usuario:', error);
 
           if (error.error.error === "E-mail já em uso") {
@@ -63,6 +67,15 @@ export class SignupPage implements OnInit {
       })
     }
   }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Carregando...',
+    });
+
+    loading.present();
+  }
+
 
   sendConfirmationEmail(email: string, token: string) {
     const userData = {
