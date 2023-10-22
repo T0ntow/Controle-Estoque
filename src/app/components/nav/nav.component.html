@@ -1,11 +1,12 @@
 <ion-header>
   <a href="/home">
-    <ion-title> Produtos</ion-title>
+    <ion-title [ngClass]="{'active': isProdutosPage}">Produtos</ion-title>
   </a>
-  <a href="report">
-    <ion-title> Relatório </ion-title>
+  
+  <a href="/report">
+    <ion-title [ngClass]="{'active': isReportPage}">Relatório</ion-title>
   </a>
-
+  
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-menu-button id="menu-button"></ion-menu-button>

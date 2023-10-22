@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalNewProductComponent } from '../modals/modal-new-product/modal-new-product.component';
 import { LoginService } from 'services/login/login.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,14 +12,35 @@ import { Router } from '@angular/router';
 })
 
 export class NavComponent  implements OnInit {
+  isProdutosPage: boolean = false;
+  isReportPage: boolean = false;
+
 
   constructor(
     private modalCtrl: ModalController,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
+
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+   if(this.isOnHomePage()) {
+    this.isProdutosPage = true
+   }
+
+   if(this.isOnReportPage()) {
+    this.isReportPage = true
+   }
+  }
+
+  isOnHomePage(): boolean {
+    return this.router.isActive('/home', {paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored'})
+  }
+
+  isOnReportPage(): boolean {
+    return this.router.isActive('/report', {paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored'})
+  }
 
   exibirServicos = false;
 

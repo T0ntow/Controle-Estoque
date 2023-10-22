@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { AuthGuard } from './guard/auth.guard';
-
+import { ReportPageModule } from './pages/report/report.module';
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'report', loadChildren: () => import('./pages/report/report.module').then(m => m.ReportPageModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'login',
