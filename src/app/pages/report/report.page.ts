@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { parseISO } from 'date-fns';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import jsPDF from 'jspdf'; // Import the jspdf library
 import { ReportService } from 'services/report/report.service';
@@ -41,7 +42,9 @@ export class ReportPage implements OnInit {
     this.reportService.getEntry().subscribe({
       next: (response: any) => {
         console.log('Entradas obtidas com sucesso:', response);
+
         this.entradas = response
+        this.registros.push(this.entradas)
         this.entradasFiltradas = this.entradas
       },
       error: (error) => {
@@ -52,14 +55,18 @@ export class ReportPage implements OnInit {
     this.reportService.getExit().subscribe({
       next: (response: any) => {
         console.log('Saídas obtidas com sucesso:', response);
+
         this.saidas = response
+        this.registros.push(this.saidas)
         this.saidasFiltradas = this.saidas
+
       },
       error: (error) => {
         console.error('Erro ao obter saídas:', error);
       }
     });
 
+    console.log("this.registros", this.registros);
   }
 
   procurarRegistros(event: any) {
@@ -75,7 +82,6 @@ export class ReportPage implements OnInit {
       return registro.nome_produto.toLowerCase().includes(this.searchTerm.toLowerCase());
     });
   }
-
 
   downloadPdf() {
     const content = document.getElementById("content");
@@ -146,27 +152,26 @@ export class ReportPage implements OnInit {
   }
 
   filterRegisters() {
-    const timeZone = 'America/Sao_Paulo'; // Fuso horário desejado
-
     if (this.selectedDate) {
-      const zonedDate = utcToZonedTime(this.selectedDate, timeZone);
-      const formattedDate = format(zonedDate, 'dd/MM/yyyy HH:mm:ss');
-
-      // Filtrar por data
-      this.registrosFiltrados = this.registros.filter(registro => {
-        if (registro.entradas) {
-          registro.entradas.data_hora === formattedDate
-        } else {
-          registro.saidas.data_hora === formattedDate
-        }
+      const brazilTimeZone = 'America/Sao_Paulo'; // Fuso horário do Brasil
+      const selectedDateObj = utcToZonedTime(new Date(this.selectedDate), brazilTimeZone);
+  
+      // Filtrar as entradas com base na data selecionada
+      this.entradasFiltradas = this.entradas.filter((registro) => {
+        const dataRegistro = utcToZonedTime(new Date(registro.data_hora), brazilTimeZone).toISOString().split('T')[0];
+        return dataRegistro === selectedDateObj.toISOString().split('T')[0];
       });
-
-      // console.log("this.registrosFiltrados", this.registrosFiltrados );
+  
+      // Filtrar as saídas com base na data selecionada
+      this.saidasFiltradas = this.saidas.filter((registro) => {
+        const dataRegistro = utcToZonedTime(new Date(registro.data_hora), brazilTimeZone).toISOString().split('T')[0];
+        return dataRegistro === selectedDateObj.toISOString().split('T')[0];
+      });
     } else {
-      this.registrosFiltrados = this.registros;
+      this.entradasFiltradas = this.entradas;
+      this.saidasFiltradas = this.saidas;
     }
   }
-
 
   removeFilters() {
     this.selectedDate = ''
