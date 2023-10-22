@@ -7,16 +7,16 @@ import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'home',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
-      },
-      { path: 'home/produtos', component: ProdutosComponent },
-      { path: 'report', loadChildren: () => import('./pages/report/report.module').then(m => m.ReportPageModule) },
-    ]
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+  },
+  { path: 'home/produtos', component: ProdutosComponent },
+  { path: 'report', loadChildren: () => import('./pages/report/report.module').then(m => m.ReportPageModule) },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'home' // Rota curinga para redirecionar para 'home'
   }
 ];
 
