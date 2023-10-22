@@ -7,7 +7,6 @@ import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 
 import { isBefore, differenceInDays } from 'date-fns';
 import { AlertController } from '@ionic/angular';
-
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -32,7 +31,7 @@ export class ProdutosComponent implements OnInit {
     private popoverController: PopoverController,
     private productsSqlService: ProductsSqlService,
     private alertController: AlertController
-    ) {
+  ) {
     this.productsSqlService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
       this.getProductsFromSql()
@@ -88,6 +87,7 @@ export class ProdutosComponent implements OnInit {
     this.selectedFilter = '';
     this.selectedMark = '';
     this.selectedDate = '';
+    this.selectedValidate = ''
 
     this.getProductsFromSql();
     this.popoverController.dismiss(); //fechar popover
@@ -169,10 +169,28 @@ export class ProdutosComponent implements OnInit {
         product.colorClass = 'red'; // Vencimento em até 1 mês
       }
 
-      product.data_inscricao = format(new Date(product.data_inscricao), 'dd/MM/yyyy');
-      product.data_validade = format(new Date(product.data_validade), 'dd/MM/yyyy');
+      product.data_validade = this.aplicarMascaraData(product.data_validade);
+      product.data_inscricao = this.aplicarMascaraData(product.data_inscricao);
+
     });
   }
+
+  aplicarMascaraData(data) {
+    if (data) {
+      // Separa os componentes da data.
+      const ano = data.substr(0, 4);
+      const mes = data.substr(5, 2);
+      const dia = data.substr(8, 2);
+  
+      // Aplica a máscara (dd/MM/yyyy).
+      console.log(`${dia}/${mes}/${ano}`);
+      
+      return `${dia}/${mes}/${ano}`;
+    } else {
+      return data; // Retorna a data original se estiver em um formato incorreto.
+    }
+  }
+  
 
 
   filterByColor(color: string) {
