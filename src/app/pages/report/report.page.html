@@ -36,18 +36,16 @@
       </ion-button>
     </div>
 
-    <ion-list>
-      <div *ngFor="let registro of saidasFiltradas">
-        <ion-label class="item">
-          <ng-container>
-            <h2>{{ registro.nome_produto }}</h2>
-            <p>Quantidade: {{ registro.quantidade }}</p>
-            <p>Data/Hora: {{ registro.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-          </ng-container>
-        </ion-label>
-      </div>
-    </ion-list>
-    
+    <div *ngFor="let registro of saidasFiltradas">
+      <ion-label class="item">
+        <ng-container>
+          <h2>{{ registro.nome_produto }}</h2>
+          <p>Quantidade: {{ registro.quantidade }}</p>
+          <p>Data/Hora: {{ registro.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        </ng-container>
+      </ion-label>
+    </div>
+
     <div id="header-entry">
       <h4 class="texto-verde">
         Entradas
@@ -58,17 +56,15 @@
       </ion-button>
     </div>
 
-    <ion-list id="content">
-      <div *ngFor="let registro of entradasFiltradas">
-        <ion-label class="item">
-          <ng-container>
-            <h2>{{ registro.nome_produto }}</h2>
-            <p>Quantidade: {{ registro.quantidade }}</p>
-            <p>Data/Hora: {{ registro.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-          </ng-container>
-        </ion-label>
-      </div>
-    </ion-list>
+    <div *ngFor="let registro of entradasFiltradas">
+      <ion-label class="item">
+        <ng-container>
+          <h2>{{ registro.nome_produto }}</h2>
+          <p>Quantidade: {{ registro.quantidade }}</p>
+          <p>Data/Hora: {{ registro.data_hora | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        </ng-container>
+      </ion-label>
+    </div>
   </main>
 
 
