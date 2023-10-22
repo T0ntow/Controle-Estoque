@@ -10,6 +10,6 @@ export class SignupSqlService {
   ) { }
 
   newUser(userData: any) {
-    return this.http.post('http://localhost:3000/cadastrar-usuario', userData)
+    return this.http.post('http://localhost:3005/cadastrar-usuario', userData)
   }
 }

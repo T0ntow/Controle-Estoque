@@ -11,7 +11,7 @@ export class EmailService {
   ) { }
 
   sendConfirmationEmail(userData: any) {
-    return this.http.post('http://localhost:3000/enviar-email-confirmacao', userData)
+    return this.http.post('http://localhost:3005/enviar-email-confirmacao', userData)
   }
 
 }

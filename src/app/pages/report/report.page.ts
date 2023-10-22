@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { format, utcToZonedTime } from 'date-fns-tz';
 import jsPDF from 'jspdf'; // Import the jspdf library
 import { ReportService } from 'services/report/report.service';
 
@@ -8,69 +9,73 @@ import { ReportService } from 'services/report/report.service';
   styleUrls: ['./report.page.scss'],
 })
 
-
 export class ReportPage implements OnInit {
   registros: any[] = [];
   entradas: any[] = [];
   saidas: any[] = [];
 
+  entradasFiltradas: any[] = [];
+  saidasFiltradas: any[] = [];
+
+
+  searchTerm: string = "";
+
   registrosFiltrados: any[] = []; // Nova lista para registros filtrados
   @ViewChild('content', { static: false }) content!: ElementRef;
-
 
   // Adicione uma variável de controle
   orderDescendingExit: boolean = true;
   orderDescendingEntry: boolean = true;
 
+  selectedDate!: string;
 
   constructor(
     private reportService: ReportService,
   ) { }
 
   ngOnInit() {
-    this.getEntry();
-    this.getExit();
-    console.log("registros", this.registros);
+    this.getData();
   }
 
-  getEntry() {
+  getData() {
     this.reportService.getEntry().subscribe({
       next: (response: any) => {
         console.log('Entradas obtidas com sucesso:', response);
-        this.entradas = response; // Atribui a resposta a 'entradas'
-        this.registros.push({ entradas: this.entradas })
+        this.entradas = response
+        this.entradasFiltradas = this.entradas
       },
       error: (error) => {
         console.error('Erro ao obter entradas:', error);
       }
     });
-  }
 
-  getExit() {
     this.reportService.getExit().subscribe({
       next: (response: any) => {
         console.log('Saídas obtidas com sucesso:', response);
-        this.saidas = response; // Atribui a resposta a 'saidas'
-        this.registros.push({ saidas: this.saidas })
+        this.saidas = response
+        this.saidasFiltradas = this.saidas
       },
       error: (error) => {
         console.error('Erro ao obter saídas:', error);
       }
     });
+
   }
 
-  filtrarRegistros(event: any) {
-    const searchTerm = event.target.value;
-    if (searchTerm) {
-      // Filtrar registros com base no termo de pesquisa
-      this.registrosFiltrados = this.registros.filter(registro => {
-        return registro.nomeProduto.toLowerCase().includes(searchTerm.toLowerCase());
-      });
-    } else {
-      // Se a barra de pesquisa estiver vazia, exiba todos os registros
-      this.registrosFiltrados = this.registros;
-    }
+  procurarRegistros(event: any) {
+    this.searchTerm = event.target.value;
+
+    // Filtrar entradas com base no termo de pesquisa
+    this.entradasFiltradas = this.entradas.filter((registro: { nome_produto: string; }) => {
+      return registro.nome_produto.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
+
+    // // Filtrar saídas com base no termo de pesquisa
+    this.saidasFiltradas = this.saidas.filter((registro: { nome_produto: string; }) => {
+      return registro.nome_produto.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
   }
+
 
   downloadPdf() {
     const content = document.getElementById("content");
@@ -82,7 +87,6 @@ export class ReportPage implements OnInit {
 
     doc.html(content!, {
       callback: function (pdf) {
-
         pdf.save("relatorio.pdf");
       }
     });
@@ -90,17 +94,17 @@ export class ReportPage implements OnInit {
 
   invertExit() {
     // Certifique-se de que 'saidas' esteja preenchido
-    if (this.saidas.length > 0) {
+    if (this.saidasFiltradas.length > 0) {
       if (this.orderDescendingExit) {
         // Ordene as saídas com base na data, do mais recente para o mais antigo
-        this.saidas.sort((a: any, b: any) => {
+        this.saidasFiltradas.sort((a: any, b: any) => {
           const dateA = new Date(a.data_hora); // Supondo que 'data_hora' é o campo da data nas saídas
           const dateB = new Date(b.data_hora);
           return dateB.getTime() - dateA.getTime();
         });
       } else {
         // Ordene as saídas com base na data, do mais antigo para o mais recente
-        this.saidas.sort((a: any, b: any) => {
+        this.saidasFiltradas.sort((a: any, b: any) => {
           const dateA = new Date(a.data_hora);
           const dateB = new Date(b.data_hora);
           return dateA.getTime() - dateB.getTime();
@@ -114,20 +118,20 @@ export class ReportPage implements OnInit {
     }
   }
 
-  
+
   invertEntry() {
     // Certifique-se de que 'saidas' esteja preenchido
-    if (this.entradas.length > 0) {
+    if (this.entradasFiltradas.length > 0) {
       if (this.orderDescendingEntry) {
         // Ordene as saídas com base na data, do mais recente para o mais antigo
-        this.entradas.sort((a: any, b: any) => {
+        this.entradasFiltradas.sort((a: any, b: any) => {
           const dateA = new Date(a.data_hora); // Supondo que 'data_hora' é o campo da data nas saídas
           const dateB = new Date(b.data_hora);
           return dateB.getTime() - dateA.getTime();
         });
       } else {
         // Ordene as saídas com base na data, do mais antigo para o mais recente
-        this.entradas.sort((a: any, b: any) => {
+        this.entradasFiltradas.sort((a: any, b: any) => {
           const dateA = new Date(a.data_hora);
           const dateB = new Date(b.data_hora);
           return dateA.getTime() - dateB.getTime();
@@ -141,10 +145,31 @@ export class ReportPage implements OnInit {
     }
   }
 
+  filterRegisters() {
+    const timeZone = 'America/Sao_Paulo'; // Fuso horário desejado
 
-  mostrarFiltro() {
-    // Lógica para mostrar opções de filtro (por data, semana, mês)
-    // Você pode abrir um modal ou outra interface para configurar o filtro
+    if (this.selectedDate) {
+      const zonedDate = utcToZonedTime(this.selectedDate, timeZone);
+      const formattedDate = format(zonedDate, 'dd/MM/yyyy HH:mm:ss');
+
+      // Filtrar por data
+      this.registrosFiltrados = this.registros.filter(registro => {
+        if (registro.entradas) {
+          registro.entradas.data_hora === formattedDate
+        } else {
+          registro.saidas.data_hora === formattedDate
+        }
+      });
+
+      // console.log("this.registrosFiltrados", this.registrosFiltrados );
+    } else {
+      this.registrosFiltrados = this.registros;
+    }
   }
 
+
+  removeFilters() {
+    this.selectedDate = ''
+    this.filterRegisters()
+  }
 }

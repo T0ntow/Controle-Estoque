@@ -84,7 +84,6 @@ export class ProdutosComponent implements OnInit {
     this.filteredProducts = filteredProducts;
   }
 
-
   removeFilters() {
     this.selectedFilter = '';
     this.selectedMark = '';

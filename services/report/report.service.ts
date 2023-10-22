@@ -10,10 +10,10 @@ export class ReportService {
   ) { }
 
   getExit() {
-    return this.http.get('http://localhost:3000/saidas')
+    return this.http.get('http://localhost:3005/saidas')
   }
 
   getEntry() {
-    return this.http.get('http://localhost:3000/entradas')
+    return this.http.get('http://localhost:3005/entradas')
   }
 }
