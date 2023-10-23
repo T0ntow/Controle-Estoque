@@ -1,5 +1,5 @@
 * {
-    font-size: .9rem;
+    font-size: 0.9rem;
 }
 
 a {
@@ -7,12 +7,14 @@ a {
     color: #a3a3a3;
     text-decoration: none;
 }
+
 .active {
     font-size: 2rem;
     color: rgb(255, 255, 255);
     font-weight: bolder;
     text-shadow: 2px 2px 1px #1194c0;
 }
+
 ion-header {
     display: flex;
     align-items: center;
@@ -26,6 +28,18 @@ ion-header {
         font-size: 1.2rem;
     }
 
+    #smaller {
+        display: none;
+        color: #fff;
+
+        ion-icon {
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    }
+
     ion-toolbar {
         display: flex;
         justify-content: space-between;
@@ -33,10 +47,16 @@ ion-header {
         width: 100%;
         --background: var(--ion-color-tertiary);
 
-        padding:0 20px;
+        padding: 0 20px;
+    }
 
-        #menu-button {
+    @media screen and (max-width: 650px) {
+        #larger {
             display: none;
+        }
+
+        #smaller {
+            display: flex;
         }
     }
 }

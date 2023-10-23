@@ -11,7 +11,26 @@
     ion-button {
         font-weight: bold;
         width: 150px;
+        --background: var(--ion-color-secondary);
     }
+
+    .sorted-button {
+
+        ion-icon {
+            color: #a3a3a3;
+        }
+    }
+
+    .sorted {
+        --background: #1e7fa5;
+
+        ion-icon {
+            filter: brightness(100);
+            color: #fff;
+        }
+    }
+
+   
 }
     
 .farol-div {
@@ -142,14 +161,17 @@ main {
     }
     #box-filters {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 10px;
 
         ion-searchbar {
             width: 95%;
         }
 
-        ion-button {
-            width: 70%;
+        .sorted-button {
+            ion-icon {
+                color: #a3a3a3;
+            }
         }
     }
 }

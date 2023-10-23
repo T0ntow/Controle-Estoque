@@ -18,6 +18,7 @@ export class ProdutosComponent implements OnInit {
   products: any[] = [];
   marcas: string[] = [];
   filteredProducts: any[] = [];
+  sortedProducts: boolean = false
 
   selectedFilter: string | null = null; // Valor inicial é null
 
@@ -181,17 +182,29 @@ export class ProdutosComponent implements OnInit {
       const ano = data.substr(0, 4);
       const mes = data.substr(5, 2);
       const dia = data.substr(8, 2);
-  
+
       // Aplica a máscara (dd/MM/yyyy).
       console.log(`${dia}/${mes}/${ano}`);
-      
+
       return `${dia}/${mes}/${ano}`;
     } else {
       return data; // Retorna a data original se estiver em um formato incorreto.
     }
   }
-  
 
+  sortProducts() {
+    if (!this.sortedProducts) {
+      console.log("ordenar");
+      this.filteredProducts = [...this.products].sort(function (a, b) {
+        return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
+      });
+      this.sortedProducts = true;
+    } else {
+      console.log("não ordenar");
+      this.filteredProducts = [...this.products];
+      this.sortedProducts = false;
+    }
+  }
 
   filterByColor(color: string) {
     if (color === 'green' || color === 'yellow' || color === 'red') {

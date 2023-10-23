@@ -47,3 +47,21 @@
     }
 }
 
+
+@media screen and (max-width: 600px) {
+    #box-filters {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+
+        ion-searchbar {
+            width: 95%;
+        }
+
+        .sorted-button {
+            ion-icon {
+                color: #a3a3a3;
+            }
+        }
+    }
+}

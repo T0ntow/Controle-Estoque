@@ -23,6 +23,7 @@ export class NavComponent  implements OnInit {
     private route: ActivatedRoute
 
   ) { }
+  menuType: string = 'overlay';
 
   ngOnInit() {
    if(this.isOnHomePage()) {
