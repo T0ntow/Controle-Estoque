@@ -7,6 +7,7 @@ import { ProductsSqlService } from 'services/products_sql/products-sql.service';
 
 import { isBefore, differenceInDays } from 'date-fns';
 import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
@@ -27,11 +28,12 @@ export class ProdutosComponent implements OnInit {
   selectedValidate!: string;
 
   selectedMark: string = '';
+  isLoading: boolean = true; // Inicialize isLoading como true
 
   constructor(
     private popoverController: PopoverController,
     private productsSqlService: ProductsSqlService,
-    private alertController: AlertController
+    private alertController: AlertController,
   ) {
     this.productsSqlService.getObservableProducts().subscribe(isUpdated => {
       console.log('chegou isUpdated: ', isUpdated);
@@ -124,6 +126,8 @@ export class ProdutosComponent implements OnInit {
   }
 
   getProductsFromSql() {
+    this.isLoading = true; // Define isLoading como true antes de buscar produtos
+
     this.productsSqlService.getAllProducts().subscribe({
       next: (data: any) => {
         this.products = data as any[];
@@ -132,10 +136,12 @@ export class ProdutosComponent implements OnInit {
         this.addExpirationColors(); // Adicione a função para definir cores com base no vencimento
 
         this.filteredProducts = this.products
+        this.isLoading = false; // Certifique-se de definir isLoading como false em caso de erro também.
       },
       error: (error) => {
         console.error('Erro ao obter os produtos:', error);
         this.alertErrorGetProducts()
+        this.isLoading = false; // Certifique-se de definir isLoading como false em caso de erro também.
       }
     });
   }

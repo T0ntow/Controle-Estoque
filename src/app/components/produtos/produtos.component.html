@@ -66,6 +66,11 @@
       <ion-col class="table-col table-header">Entrada</ion-col>
       <ion-col class="table-col table-header">Saida</ion-col>
     </ion-row>
+
+    <div *ngIf="isLoading">
+      <ion-title style="font-weight: bolder; color: #fff;">Carregando produtos...</ion-title>
+    </div>
+
     <ion-row class="table-row" *ngFor="let product of filteredProducts">
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.nome }}</ion-col>
       <ion-col class="table-col" [ngClass]="getColorClass(product)">{{ product.marca }}</ion-col>
