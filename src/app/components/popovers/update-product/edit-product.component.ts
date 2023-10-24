@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { ModalEditProductComponent } from '../../modals/modal-edit-product/modal-edit-product.component';
 import { ModalController } from '@ionic/angular';
 import { ProductsSqlService } from 'services/products_sql/products-sql.service';
+import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular'; // Importe o AlertController
 
 @Component({
   selector: 'app-edit-product',
@@ -20,7 +22,9 @@ export class EditProductComponent implements OnInit {
     private http: HttpClient,
     private productsSqlService: ProductsSqlService,
     private modalCtrl: ModalController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private toastController: ToastController,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -29,15 +33,16 @@ export class EditProductComponent implements OnInit {
 
   deleteProduct() {
     const id = this.product.id;
-    console.log("id delete", id);
-    
+    this.showLoading();
 
     this.productsSqlService.deletarProduto(id).subscribe({
       next: (response: any) => {
+        this.loadingCtrl.dismiss()
         this.productsSqlService.updateObservableProducts();
         this.popoverController.dismiss(null, 'confirm')
       },
       error: (error: any) => {
+        this.loadingCtrl.dismiss()
         console.error('Erro ao remover produto:', error);
       }
     });
@@ -50,19 +55,51 @@ export class EditProductComponent implements OnInit {
       id: this.product.id
     };
 
-    console.log("id", data.id);
-
-    if(quantidade > 1) {
+    if (quantidade > 1) {
+      this.showLoading()
       this.productsSqlService.atualizarItem(data).subscribe({
-        next: (response: any) => {
+        next: async (response: any) => {
+          this.loadingCtrl.dismiss()
+          await this.presentToast(operacao)
           this.productsSqlService.updateObservableProducts();
           this.popoverController.dismiss();
         },
         error: (error: any) => {
+          this.loadingCtrl.dismiss()
           console.error('Erro ao atualizar item:', error);
           this.popoverController.dismiss(null, 'cancel');
         }
       });
+    }
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Carregando...',
+    });
+
+    loading.present();
+  }
+
+  async presentToast(operation: string) {
+    if (operation === 'entrada') {
+      const toast = await this.toastController.create({
+        message: 'Entrada registrada!',
+        duration: 3000,
+        position: 'bottom',
+      });
+
+      await toast.present();
+    }
+
+    if (operation === 'saida') {
+      const toast = await this.toastController.create({
+        message: 'Saída registrada!',
+        duration: 1500,
+        position: 'bottom',
+      });
+
+      await toast.present();
     }
   }
 
