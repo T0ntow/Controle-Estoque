@@ -1,3 +1,18 @@
+<ion-header *ngIf="!isOnBlockPages()">
+  <ion-title [routerLink]="['/home']" routerLinkActive="active">Produtos</ion-title>
+  <ion-title [routerLink]="['/report']" routerLinkActive="active">Relatório</ion-title>
+
+  <ion-toolbar id="larger">
+    <ion-button slot="end" outline="fill" (click)="openModalCreateProduct()">Novo Produto</ion-button>
+    <ion-button slot="end" color="danger" outline="fill" (click)="logout()">Sair</ion-button>
+  </ion-toolbar>
+
+  <ion-toolbar id="smaller">
+    <ion-icon slot="end" name="add-circle-sharp" (click)="openModalCreateProduct()"></ion-icon>
+    <ion-icon color="danger" slot="end" name="log-out" (click)="logout()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
 <ion-app style="background-color: #ededed;">
-  <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet [ngClass]="{'outlet': !isOnBlockPages()}"></ion-router-outlet>
 </ion-app>

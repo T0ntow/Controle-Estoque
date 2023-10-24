@@ -10,7 +10,6 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { ProdutosComponent } from '../../components/produtos/produtos.component';
 import { ModalNewProductComponent } from '../../components/modals/modal-new-product/modal-new-product.component';
 import { ModalEditProductComponent } from 'src/app/components/modals/modal-edit-product/modal-edit-product.component';
-import { NavComponentModule } from 'src/app/components/nav/nav.module';
 //modulo http
 import { HttpClientModule } from '@angular/common/http';
 
@@ -26,7 +25,6 @@ import { EditProductComponent } from 'src/app/components/popovers/update-product
     HomePageRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NavComponentModule
   ],
   declarations: [
     HomePage,
@@ -34,6 +32,6 @@ import { EditProductComponent } from 'src/app/components/popovers/update-product
     ModalNewProductComponent,
     EditProductComponent,
     ModalEditProductComponent,
-  ]
+  ],
 })
 export class HomePageModule {}

@@ -8,7 +8,7 @@
         
         <form [formGroup]="loginForm" >
           <ion-input label="Email:" labelPlacement="stacked" formControlName="email"></ion-input>
-          <ion-input label="Password:" labelPlacement="stacked" formControlName="senha"></ion-input>
+          <ion-input label="Password:" type="password" labelPlacement="stacked" formControlName="senha"></ion-input>
   
           <ion-button (click)="login()">Login</ion-button>
         </form>
