@@ -19,7 +19,6 @@ export class ProdutosComponent implements OnInit {
   products: any[] = [];
   marcas: string[] = [];
   filteredProducts: any[] = [];
-  sortedProducts: boolean = false
 
   selectedFilter: string | null = null; // Valor inicial é null
 
@@ -134,8 +133,9 @@ export class ProdutosComponent implements OnInit {
         // this.formatDates(); // Chame a função formatDates após obter os produtos
         this.getMarks(); // Chame a função getMarks após obter os produtos
         this.addExpirationColors(); // Adicione a função para definir cores com base no vencimento
-
-        this.filteredProducts = this.products
+        this.filteredProducts = [...this.products].sort(function (a, b) {
+          return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
+        });
         this.isLoading = false; // Certifique-se de definir isLoading como false em caso de erro também.
       },
       error: (error) => {
@@ -199,17 +199,7 @@ export class ProdutosComponent implements OnInit {
   }
 
   sortProducts() {
-    if (!this.sortedProducts) {
-      console.log("ordenar");
-      this.filteredProducts = [...this.products].sort(function (a, b) {
-        return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
-      });
-      this.sortedProducts = true;
-    } else {
-      console.log("não ordenar");
-      this.filteredProducts = [...this.products];
-      this.sortedProducts = false;
-    }
+   
   }
 
   filterByColor(color: string) {
