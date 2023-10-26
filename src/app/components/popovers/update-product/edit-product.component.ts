@@ -85,8 +85,9 @@ export class EditProductComponent implements OnInit {
     if (operation === 'entrada') {
       const toast = await this.toastController.create({
         message: 'Entrada registrada!',
-        duration: 3000,
-        position: 'bottom',
+        duration: 1500,
+        position: 'top',
+        color: 'dark',
       });
 
       await toast.present();
@@ -96,7 +97,8 @@ export class EditProductComponent implements OnInit {
       const toast = await this.toastController.create({
         message: 'Saída registrada!',
         duration: 1500,
-        position: 'bottom',
+        position: 'top',
+        color: 'dark',
       });
 
       await toast.present();
